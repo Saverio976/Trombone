@@ -28,7 +28,7 @@ function InputBox({ icon, hidden = false, setFunc, title, str, placeholder }: in
 }
 
 
-function LoginPage(): JSX.Element {
+function LoginPage({ navigation }: { navigation: any }): JSX.Element {
     const [email, setEmail] = useState<string>("oliver.lewis@masurao.jp");
     const [password, setPassword] = useState<string>("password");
     const [apiCall, setApiCall] = useState<boolean>(false);
@@ -40,6 +40,7 @@ function LoginPage(): JSX.Element {
         if (email === "admin" && password === "admin") {
             console.log("Admin Login");
             store.dispatch({type: 'adminLogin'})
+            navigation.navigate("Home2");
             return;
         }
 
@@ -61,6 +62,7 @@ function LoginPage(): JSX.Element {
                 if (asyncResponse.status === 200) {
                     console.log("Successfully logged in")
                     store.dispatch({type: 'login', token: response["access_token"]})
+                    navigation.navigate("Home2");
                 } else {
                     console.log(response)
                 }
