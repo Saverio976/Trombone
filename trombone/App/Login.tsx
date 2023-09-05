@@ -34,6 +34,12 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
     const [apiCall, setApiCall] = useState<boolean>(false);
     const user = store.getState();
 
+    function QuickAdmin() {
+        console.log("Admin Login");
+        store.dispatch({type: 'adminLogin'})
+        navigation.reset({index: 0, routes: [{name: "Home"}]});
+    }
+
     const onTryLogin = async () => {
         setApiCall(true);
 
@@ -101,7 +107,12 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
                 placeholder='password' />
             <Button style={styles.loginButton} onPress={onTryLogin}>
                 <Text style={styles.loginButtonText}>
-                    Se connecter{"\n"}{String(user.value)}
+                    Se connecter
+                </Text>
+            </Button>
+            <Button style={styles.loginButton} onPress={QuickAdmin}>
+                <Text style={styles.loginButtonText}>
+                    Admin
                 </Text>
             </Button>
         </View>
