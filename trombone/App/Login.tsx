@@ -40,7 +40,7 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
         if (email === "admin" && password === "admin") {
             console.log("Admin Login");
             store.dispatch({type: 'adminLogin'})
-            navigation.navigate("Home2");
+            navigation.reset({index: 0, routes: [{name: "Home"}]});
             return;
         }
 
@@ -62,7 +62,7 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
                 if (asyncResponse.status === 200) {
                     console.log("Successfully logged in")
                     store.dispatch({type: 'login', token: response["access_token"]})
-                    navigation.navigate("Home2");
+                    navigation.reset({index: 0, routes: [{name: "Home"}]});
                 } else {
                     console.log(response)
                 }
