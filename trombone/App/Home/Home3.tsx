@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-export default function Home2() {
+export default function Home3() {
     return (
         <View style={styles.page}>
-            <Text>Text middle 2</Text>
+            <Text>Text middle 3</Text>
         </View>
     );
 }
