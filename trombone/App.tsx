@@ -27,7 +27,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import LoginPage from './App/Login';
-import { store } from './App/Reducer.tsx';
+import { store } from './App/Reducer';
 
 type SectionProps = PropsWithChildren<{
   title: string;

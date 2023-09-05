@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import Colors from "@app/Colors.ts";
-import Fonts from "@app/Fonts.tsx";
-import { ActivityIndicator, Alert, Image, StyleSheet, Text, TextInput, View } from 'react-native';
+import Colors from "@app/Colors";
+import Fonts from "@app/Fonts";
+import { ActivityIndicator, Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import Button from '@app/Components/Button';
 import Icons from '@app/Icons';
-import { authStatus } from '@app/Global';
-import { authReducerState, store } from './Reducer';
+import { store } from './Reducer';
 
 interface inputBoxProps {
     icon: any;
@@ -90,7 +89,6 @@ function LoginPage(): JSX.Element {
                 setFunc={setEmail}
                 str={email}
                 title="EMAIL"
-                mode="email"
                 placeholder="name.surname@email.com" />
             <View style={styles.spacing} />
             <InputBox icon={Icons.lock}
