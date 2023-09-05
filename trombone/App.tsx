@@ -6,7 +6,9 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
+import { Provider } from 'react-redux';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -24,12 +26,14 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import LoginPage from './App/Login';
+import { store } from './App/Reducer.tsx';
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): JSX.Element {
+function Section({ children, title }: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -56,6 +60,11 @@ function Section({children, title}: SectionProps): JSX.Element {
 }
 
 function App(): JSX.Element {
+  return (
+    <Provider store={store}>
+      <LoginPage />
+    </Provider>
+  )
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
