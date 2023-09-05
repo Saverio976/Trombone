@@ -32,6 +32,8 @@ import {
 import LoginPage from './App/Login';
 import { store } from './App/Reducer';
 import Home2 from './App/Home/Home2';
+import { Header as NavHeader } from './Components/Header';
+import { Footer as NavFooter } from './Components/Footer';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -40,12 +42,16 @@ type SectionProps = PropsWithChildren<{
 function Home() {
   const Tab = createNativeStackNavigator();
   return (
-    <Tab.Navigator initialRouteName="Home2">
-      <Tab.Screen name="Home1" component={Home2} options={{headerShown: false, gestureEnabled: false}} />
-      <Tab.Screen name="Home2" component={Home2} options={{headerShown: false, gestureEnabled: false}} />
-      <Tab.Screen name="Home3" component={Home2} options={{headerShown: false, gestureEnabled: false}} />
-      <Tab.Screen name="Home4" component={Home2} options={{headerShown: false, gestureEnabled: false}} />
-    </Tab.Navigator>
+    <>
+      <NavHeader />
+      <Tab.Navigator initialRouteName="Home2">
+        <Tab.Screen name="Home1" component={Home2} options={{headerShown: false, gestureEnabled: false}} />
+        <Tab.Screen name="Home2" component={Home2} options={{headerShown: false, gestureEnabled: false}} />
+        <Tab.Screen name="Home3" component={Home2} options={{headerShown: false, gestureEnabled: false}} />
+        <Tab.Screen name="Home4" component={Home2} options={{headerShown: false, gestureEnabled: false}} />
+      </Tab.Navigator>
+      <NavFooter />
+    </>
   );
 }
 
