@@ -6,6 +6,16 @@ const Fonts = StyleSheet.create({
         fontFamily: 'Rubik-Bold',
         fontSize: 32,
     },
+    H3: {
+        color: "#000",
+        fontFamily: 'Rubik-Medium',
+        fontSize: 16,
+    },
+    H4: {
+        color: "#000",
+        fontFamily: 'Rubik-Regular',
+        fontSize: 14,
+    },
     text: {
         fontFamily: 'Rubik-Bold',
     }
