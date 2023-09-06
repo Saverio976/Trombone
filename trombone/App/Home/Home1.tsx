@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import HomeBackground from './HomeBackground';
 
 export default function Home1() {
     return (
-        <View style={styles.page}>
-            <Text>Text middle 1</Text>
-        </View>
+        <HomeBackground pageIndex={1}>
+            <Text>Home 1</Text>
+        </HomeBackground>
     );
 }
 

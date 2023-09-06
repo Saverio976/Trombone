@@ -1,17 +1,19 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import HomeBackground from './HomeBackground';
+import Trombinoscope from './Trombinoscope';
 
 export default function Home2() {
     return (
-        <View style={styles.page}>
-            <Text>Text middle 2</Text>
-        </View>
+        <HomeBackground pageIndex={2}>
+            <Trombinoscope/>
+        </HomeBackground>
     );
 }
 
 const styles = StyleSheet.create({
     page: {
-        flex: 1,
+        height: "100%",
         backgroundColor: 'turquoise',
     }
 })

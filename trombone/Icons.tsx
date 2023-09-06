@@ -6,4 +6,9 @@ const Icons = {
     cogwheel: require("./assets/icons/cogwheel.png"),
 }
 
+export const Images = {
+    logo: require("./assets/logo.png"),
+    logoCircle: require("./assets/logo_circle.png")
+}
+
 export default Icons
