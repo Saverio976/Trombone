@@ -30,7 +30,7 @@ export default function Home1() {
                     <Text style={styles.textTitle}>Technique Pomodoro</Text>
                 </View>
                 <View style={styles.middle}>
-                    <Text style={{}}>
+                    <Text style={Fonts.H1}>
                         {timeLeft} min
                     </Text>
                 </View>
@@ -38,8 +38,8 @@ export default function Home1() {
                     {isStarted ? (
                         <Text>minuteur en cours...</Text>
                     ) : (
-                        <Button onPress={() => setIsStarted(true)}>
-                            <Text>Démarer</Text>
+                        <Button onPress={() => setIsStarted(true)} style={styles.button}>
+                            <Text style={{marginVertical: 10, marginHorizontal: 20}}>Démarer</Text>
                         </Button>
                     )}
                 </View>
@@ -51,25 +51,31 @@ export default function Home1() {
 const styles = StyleSheet.create({
     widget: {
         backgroundColor: Colors.secondary,
-        borderRadius: 500,
+        borderRadius: 50,
     },
     title: {
         marginTop: 10,
-        marginLeft: 10,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     middle: {
-        alignContent: 'center',
+        alignItems: 'center',
         justifyContent: 'center',
     },
     botom: {
         marginBottom: 10,
-        marginLeft: 10
+        marginLeft: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     tomato: {
         width: 37,
         height: 33,
+    },
+    button: {
+        borderRadius: 500,
+        backgroundColor: Colors.gradient1,
     },
     textTitle: {
         ...Fonts.H2,
