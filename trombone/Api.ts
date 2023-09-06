@@ -38,8 +38,6 @@ export async function apiLogin(email: string, password: string): Promise<Request
 }
 
 async function myFetch(endpoint: string, token: Token, output: 'blob' | 'json' | 'text', body?: string, method: string = "GET"): Promise<RequestReturn<any>> {
-    console.log("Authorization: " + "Bearer " + token)
-    console.log(endpoint)
     const resp = await fetch(endpoint, {
         method,
         headers: {

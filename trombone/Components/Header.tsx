@@ -20,7 +20,6 @@ export function Header() {
     function getImage(id: number) {
         apiImage(id, value).then(response => {
             if (response.code !== 200 || response.blob === undefined) {
-                console.log(response)
                 return
             }
             const fileReaderInstance = new FileReader();
@@ -46,7 +45,6 @@ export function Header() {
             getImage(response.json.id)
         })
     }, [])
-
     function onOptions () {
         store.dispatch({type: "logout"});
         // navigation.reset("Login")

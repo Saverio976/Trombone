@@ -45,9 +45,7 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
         setApiCall(true);
 
         if (email === "admin" && password === "admin") {
-            console.log("Admin Login");
-            store.dispatch({ type: 'adminLogin' })
-            navigation.reset({ index: 0, routes: [{ name: "Home" }] });
+            QuickAdmin();
             return;
         }
 
@@ -56,7 +54,6 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
                 console.error(response)
                 return
             }
-            console.log("Successfully logged in")
             store.dispatch({type: 'login', token: response.json.access_token})
             navigation.reset({index: 0, routes: [{name: "Home"}]});
         }).finally(() => { setApiCall(false) });
@@ -89,7 +86,7 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
                     title="MOT DE PASSE"
                     hidden
                     placeholder='password' />
-                <Button style={styles.loginButton} onPress={onTryLogin}>
+                <Button style={styles.loginButton} onPress={onTryLogin} disabled={email === "" || password === "" || apiCall }>
                     <Text style={styles.loginButtonText}>
                         Se connecter
                     </Text>
