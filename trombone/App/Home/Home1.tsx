@@ -23,13 +23,18 @@ export default function Home1() {
     }, [timeLeft, isStarted])
 
     return (
-        <HomeBackground pageIndex={1}>
+        <HomeBackground style={{justifyContent: 'center'}} pageIndex={1}>
             <View style={styles.widget}>
                 <View style={styles.title}>
                     <Image source={Icons.tomato} style={styles.tomato} />
                     <Text style={styles.textTitle}>Technique Pomodoro</Text>
                 </View>
                 <View style={styles.middle}>
+                    {isStarted ? (
+                        <Text style={Fonts.H1}>Plus que</Text>
+                    ) : (
+                        <></>
+                    )}
                     <Text style={Fonts.H1}>
                         {timeLeft} min
                     </Text>
