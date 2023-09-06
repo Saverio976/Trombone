@@ -5,7 +5,8 @@ const Icons = {
     arrowRight: require("./assets/icons/arrow-right.png"),
     cogwheel: require("./assets/icons/cogwheel.png"),
     search: require("./assets/icons/magnifying_glass.png"),
-    sort: require("./assets/icons/sort.png")
+    sort: require("./assets/icons/sort.png"),
+    tomato: require("./assets/icons/tomate21-2415639179.png"),
 }
 
 export const Images = {
