@@ -6,6 +6,7 @@ import { ActivityIndicator, Image, StyleSheet, Text, TextInput, View } from 'rea
 import Button from '@app/Components/Button';
 import Icons from '@app/Icons';
 import { store } from './Reducer';
+import { apiLogin } from '@app/Api';
 
 interface inputBoxProps {
     icon: any;
@@ -50,33 +51,15 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
             return;
         }
 
-        fetch("https://masurao.fr/api/employees/login", {
-            method: "POST",
-            headers: {
-                "X-Group-Authorization" : "qkRWGKs55LnaJUowf7VbzUUR4skcllAF",
-                "accept": "application/json",
-                "Content-Type": "application/json",
-            },
-
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        })
-            .then(async (asyncResponse) => {
-                const response = await asyncResponse.json()
-                if (asyncResponse.status === 200) {
-                    console.log("Successfully logged in")
-                    store.dispatch({type: 'login', token: response["access_token"]})
-                    navigation.reset({index: 0, routes: [{name: "Home"}]});
-                } else {
-                    console.log(response)
-                }
-            })
-            .catch((error) => {
-                console.error(error)
-             })
-            .finally(() => { setApiCall(false) });
+        apiLogin(email, password).then(response => {
+            if (response.code !== 200 || response.json === undefined) {
+                console.error(response)
+                return
+            }
+            console.log("Successfully logged in")
+            store.dispatch({type: 'login', token: response.json.access_token})
+            navigation.reset({index: 0, routes: [{name: "Home"}]});
+        }).finally(() => { setApiCall(false) });
     }
 
 
