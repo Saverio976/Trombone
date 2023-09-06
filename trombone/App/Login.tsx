@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Colors from "@app/Colors";
 import Fonts from "@app/Fonts";
-import { ActivityIndicator, Image, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import Button from '@app/Components/Button';
-import Icons from '@app/Icons';
+import Icons, { Images } from '@app/Icons';
 import { store } from './Reducer';
 import { apiLogin } from '@app/Api';
 
@@ -37,8 +37,8 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
 
     function QuickAdmin() {
         console.log("Admin Login");
-        store.dispatch({type: 'adminLogin'})
-        navigation.reset({index: 0, routes: [{name: "Home"}]});
+        store.dispatch({ type: 'adminLogin' })
+        navigation.reset({ index: 0, routes: [{ name: "Home" }] });
     }
 
     const onTryLogin = async () => {
@@ -46,8 +46,8 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
 
         if (email === "admin" && password === "admin") {
             console.log("Admin Login");
-            store.dispatch({type: 'adminLogin'})
-            navigation.reset({index: 0, routes: [{name: "Home"}]});
+            store.dispatch({ type: 'adminLogin' })
+            navigation.reset({ index: 0, routes: [{ name: "Home" }] });
             return;
         }
 
@@ -70,59 +70,68 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
         locations={[0, 0.1, 1]}
         style={styles.background}
     >
-        <ActivityIndicator animating={apiCall}/>
-        <View style={styles.loginCard}>
-            <Text style={styles.loginTitle}>
-                Connexion
-            </Text>
-            <InputBox
-                icon={Icons.email}
-                setFunc={setEmail}
-                str={email}
-                title="EMAIL"
-                placeholder="name.surname@email.com" />
-            <View style={styles.spacing} />
-            <InputBox icon={Icons.lock}
-                setFunc={setPassword}
-                str={password}
-                title="MOT DE PASSE"
-                hidden
-                placeholder='password' />
-            <Button style={styles.loginButton} onPress={onTryLogin}>
-                <Text style={styles.loginButtonText}>
-                    Se connecter
+            <Image source={Images.logoCircle} style={styles.logo} />
+            <ActivityIndicator animating={apiCall}/>
+            <View style={styles.loginCard}>
+                <Text style={styles.loginTitle}>
+                    Connexion
                 </Text>
-            </Button>
-            <Button style={styles.loginButton} onPress={QuickAdmin}>
-                <Text style={styles.loginButtonText}>
-                    Admin
-                </Text>
-            </Button>
-        </View>
+                <InputBox
+                    icon={Icons.email}
+                    setFunc={setEmail}
+                    str={email}
+                    title="EMAIL"
+                    placeholder="name.surname@email.com" />
+                <View style={styles.spacing} />
+                <InputBox icon={Icons.lock}
+                    setFunc={setPassword}
+                    str={password}
+                    title="MOT DE PASSE"
+                    hidden
+                    placeholder='password' />
+                <Button style={styles.loginButton} onPress={onTryLogin}>
+                    <Text style={styles.loginButtonText}>
+                        Se connecter
+                    </Text>
+                </Button>
+                <Button style={styles.loginButton} onPress={QuickAdmin}>
+                    <Text style={styles.loginButtonText}>
+                        Admin
+                    </Text>
+                </Button>
+            </View>
     </LinearGradient>)
 }
 
 
 
 const styles = StyleSheet.create({
+    wrapper: {
+        width: '100%',
+    },
+    logo: {
+        width: 118,
+        height: 118,
+        marginTop: 35,
+        marginBottom: 20,
+    },
     background: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         paddingHorizontal: 10,
+        alignItems: "center",
+        flex: 1,
     },
     loginCard: {
         backgroundColor: Colors.secondary,
         width: "100%",
         paddingHorizontal: 10,
         borderRadius: 10,
-        paddingTop: 40,
+        paddingTop: 30,
         paddingBottom: 22,
     },
     loginTitle: {
         ...Fonts.H1,
         marginLeft: 22,
-        marginBottom: 40,
+        marginBottom: 25,
     },
     inputBox: {
         backgroundColor: "#fff",

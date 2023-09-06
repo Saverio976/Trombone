@@ -1,32 +1,78 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Colors from '@app/Colors';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Image, Text } from 'react-native';
 import Icons from '@app/Icons';
+import HomeBackground from './HomeBackground';
+import Fonts from '@app/Fonts';
+import Button from '@app/Components/Button';
 
 export default function Home1() {
+    const [timeLeft, setTimeLeft] = useState(25)
+    const [isStarted, setIsStarted] = useState(false)
+
+
+    useEffect(() => {
+        if (isStarted) {
+            const interval = setInterval(() => {
+                if (timeLeft > 0) {
+                    setTimeLeft(timeLeft - 1)
+                }
+            }, 1000 * 60)
+            return () => clearInterval(interval)
+        }
+    }, [timeLeft, isStarted])
+
     return (
-        <View style={styles.page}>
+        <HomeBackground pageIndex={1}>
             <View style={styles.widget}>
-                <Image source={Icons.tomato} style={styles.tomato} />
+                <View style={styles.title}>
+                    <Image source={Icons.tomato} style={styles.tomato} />
+                    <Text style={styles.textTitle}>Technique Pomodoro</Text>
+                </View>
+                <View style={styles.middle}>
+                    <Text style={{}}>
+                        {timeLeft} min
+                    </Text>
+                </View>
+                <View style={styles.botom}>
+                    {isStarted ? (
+                        <Text>minuteur en cours...</Text>
+                    ) : (
+                        <Button onPress={() => setIsStarted(true)}>
+                            <Text>Démarer</Text>
+                        </Button>
+                    )}
+                </View>
             </View>
-        </View>
+        </HomeBackground>
     );
 }
 
 const styles = StyleSheet.create({
-    page: {
-        flex: 1,
-        backgroundColor: 'turquoise',
-        justifyContent: 'center',
-        alignContent: 'center',
-    },
     widget: {
         backgroundColor: Colors.secondary,
-        height: '90%',
-        width: '90%',
+        borderRadius: 500,
+    },
+    title: {
+        marginTop: 10,
+        marginLeft: 10,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    middle: {
+        alignContent: 'center',
+        justifyContent: 'center',
+    },
+    botom: {
+        marginBottom: 10,
+        marginLeft: 10
     },
     tomato: {
-        width: 33,
+        width: 37,
         height: 33,
-    }
+    },
+    textTitle: {
+        ...Fonts.H2,
+        marginLeft: 10,
+    },
 })
