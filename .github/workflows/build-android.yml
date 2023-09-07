@@ -2,7 +2,7 @@ name: Build Android
 
 on:
   push:
-    branches: [cicd]
+    branches: [main, cicd]
 
 jobs:
   install-and-test:
@@ -30,14 +30,14 @@ jobs:
     steps: 
       - uses: actions/checkout@v2
 
-      - name: Install yarn
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y nodejs npm
-          sudo npm install -g yarn
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-      - name: Install npm dependencies
-        run: yarn
+      - name: Install dependencies
+        run: |
+          sudo npm install -g yarn
+          yarn
         working-directory: trombone
 
       - name: Build Android Release
