@@ -49,20 +49,22 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
             return;
         }
 
-        apiLogin(email, password).then(response => {
+        apiLogin(email, password).then(async response => {
             if (response.code !== 200 || response.json === undefined) {
                 console.error(response)
                 return
             }
             store.dispatch({ type: 'login', token: response.json.access_token })
-            navigation.reset({ index: 0, routes: [{ name: "Home" }] });
+            await navigation.reset({ index: 0, routes: [{ name: "Home" }] });
         }).finally(() => { setApiCall(false) });
     }
 
+    function magic() {
+        apiCall === true
+    }
 
     return (<View style={styles.background}>
         <Image source={Images.logoCircle} style={styles.logo} />
-        <ActivityIndicator animating={apiCall} />
         <View style={styles.loginCard}>
             <Text style={styles.loginTitle}>
                 Connexion
@@ -81,9 +83,14 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
                 hidden
                 placeholder='password' />
             <Button style={styles.loginButton} onPress={onTryLogin} disabled={email === "" || password === "" || apiCall}>
-                <Text style={styles.loginButtonText}>
+                {apiCall === false ? <Text style={styles.loginButtonText}>
                     Se connecter
                 </Text>
+                    : <>
+                        <ActivityIndicator animating={true} style={styles.loginButton2} />
+                        <Text style={[styles.loginButtonText, styles.fakeButton]}> Se connecter</Text>
+                    </>
+                }
             </Button>
             <Button style={styles.loginButton} onPress={QuickAdmin}>
                 <Text style={styles.loginButtonText}>
@@ -100,11 +107,16 @@ const styles = StyleSheet.create({
     wrapper: {
         width: '100%',
     },
+    fakeButton: {
+        height: 2,
+        marginVertical: -0.5,
+        marginHorizontal: 20
+    },
     logo: {
         width: 118,
         height: 118,
         marginTop: 35,
-        marginBottom: 20,
+        marginBottom: 35,
     },
     background: {
         paddingHorizontal: 10,
@@ -141,6 +153,11 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.light,
         alignSelf: "flex-end",
         borderRadius: 10,
+        justifyContent: "center",
+    },
+    loginButton2: {
+        marginVertical: 20,
+        marginHorizontal: 1,
     },
     loginButtonText: {
         ...Fonts.text,
