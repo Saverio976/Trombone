@@ -2,7 +2,7 @@ name: Build Android
 
 on:
   push:
-    branches: [main]
+    branches: [cicd]
 
 jobs:
   install-and-test:
@@ -17,7 +17,7 @@ jobs:
           export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
           nvm install --lts --default
-          sudo npm install -g yarn
+          npm install -g yarn
 
       - name: Install npm dependencies
         run: yarn
