@@ -7,11 +7,11 @@ if [ ! -f './.env' ]; then
     touch './.env'
 fi
 
-if [ ! grep -q "XGROUPAUTHORIZATION" ./.env ]; then
+if ! grep -q "XGROUPAUTHORIZATION" ./.env; then
     echo "XGROUPAUTHORIZATION=$XGROUPAUTHORIZATION" >> ./.env
 fi
 
-if [ ! grep -q "API_URL" ./.env ]; then
+if ! grep -q "API_URL" ./.env; then
     echo "API_URL=$API_URL" >> ./.env
 fi
 
