@@ -34,10 +34,12 @@ jobs:
         working-directory: trombone
 
       - name: Build Android Release
+        if: github.repository != 'EpitechPromo2026/B-SVR-500-TLS-5-1-survivor-matthieu.fraiz'
         run: ./gradlew --no-daemon assembleRelease
         working-directory: trombone/android
 
       - name: Upload Artifact
+        if: github.repository != 'EpitechPromo2026/B-SVR-500-TLS-5-1-survivor-matthieu.fraiz'
         uses: actions/upload-artifact@v1
         with:
           name: app-release.apk
