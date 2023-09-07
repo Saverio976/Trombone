@@ -1,28 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity } from "react-native";
 import { store } from "../Reducer";
 import { EmployeeFull, EmployeeSmall, apiEmployee, apiEmployees, apiImage } from "@app/Api";
 import Colors from "@app/Colors";
 import Icons from "@app/Icons";
 import Fonts from "@app/Fonts";
+import { Slider } from "@miblanchard/react-native-slider";
+import { useNavigation } from "@react-navigation/native";
 
 
 function Separator() {
     return <View style={{ height: 30 }} />
 }
 
-
-function renderItem(data: { item: SuperEmployee, index: number }): JSX.Element {
-    return <TouchableOpacity style={styles.item}>
-        <Image source={{uri: data.item.image}} style={styles.image}/>
-        <Text style={styles.itemText} numberOfLines={1}>{data.item.name}</Text>
-        <Text style={styles.itemText} numberOfLines={1}>{data.item.surname}</Text>
-    </TouchableOpacity>
-}
-
 const itemWidth = 80;
 const employeeIncrement = 9
-type SuperEmployee = EmployeeFull & {image: string}
+type SuperEmployee = EmployeeFull & { image: string }
 
 function Trombinoscope(): JSX.Element {
     const state = store.getState();
@@ -30,11 +23,26 @@ function Trombinoscope(): JSX.Element {
     const [employees, setEmployees] = useState<SuperEmployee[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [index, setIndex] = useState<number>(0)
+    const [height, setHeight] = useState<number>(300)
+    const nav = useNavigation();
+
+    const renderItem = useCallback((data: { item: SuperEmployee, index: number }): JSX.Element => {
+        function onPress() {
+            //@ts-expect-error
+            nav.navigate("UserInfo", { employee: data.item, img: data.item.image })
+        }
+
+        return <TouchableOpacity style={styles.item} onPress={onPress}>
+            <Image source={{ uri: data.item.image }} style={styles.image} />
+            <Text style={styles.itemText} numberOfLines={1}>{data.item.name}</Text>
+            <Text style={styles.itemText} numberOfLines={1}>{data.item.surname}</Text>
+        </TouchableOpacity>
+    }, [nav])
 
     function AddToEmployees() {
         setLoading(true);
         for (var i = 0; i < employeeIncrement; i++) {
-            var j =  i + index;
+            var j = i + index;
             if (j >= employeesList.length) {
                 break;
             }
@@ -48,7 +56,6 @@ function Trombinoscope(): JSX.Element {
                 }
                 apiImage(employeeFull.id, state.value).then((response) => {
                     if (response.code !== 200 || response.blob === undefined) {
-                        console.log(response)
                         return;
                     }
                     const fileReaderInstance = new FileReader();
@@ -57,7 +64,7 @@ function Trombinoscope(): JSX.Element {
                         var base64data = fileReaderInstance.result;
                         var img = "data:image/png;" + base64data
                         //@ts-ignore
-                        var superEmployee: SuperEmployee = {...employeeFull, image: img}
+                        var superEmployee: SuperEmployee = { ...employeeFull, image: img }
                         setEmployees(employees => [...employees, superEmployee])
                     }
                 })
@@ -89,18 +96,20 @@ function Trombinoscope(): JSX.Element {
     useEffect(() => {
     }, [employees])
 
-    return (<View style={styles.background}>
+    return (<View style={[styles.background, { height }]}>
+        <Slider value={height} containerStyle={styles.sliderContainer} onValueChange={num => setHeight(num[0])} minimumValue={250} maximumValue={500} />
         <View style={styles.searchWrapper}>
             <View style={styles.searchBox}>
-                <Image source={Icons.search} style={styles.searchIcon}/>
-                <TextInput placeholderTextColor="#00000066" style={{padding: 0,}} placeholder="Rechercher..."/>
+                <Image source={Icons.search} style={styles.searchIcon} />
+                <TextInput placeholderTextColor="#00000066" style={{ padding: 0 }} placeholder={String(height)} />
             </View>
             <TouchableOpacity style={styles.filterButton}>
                 <>
-                <Image source={Icons.sort} style={styles.filterIcon}/>
-                <Text style={styles.filterText}>Trier par</Text>
+                    <Image source={Icons.sort} style={styles.filterIcon} />
+                    <Text style={styles.filterText}>Trier par</Text>
                 </>
             </TouchableOpacity>
+
         </View>
         <FlatList
             data={employees}
@@ -114,6 +123,7 @@ function Trombinoscope(): JSX.Element {
             refreshing={loading}
             onEndReached={AddToEmployees}
             onEndReachedThreshold={2}
+            extraData={nav}
         />
     </View>)
 }
@@ -149,11 +159,12 @@ const styles = StyleSheet.create({
     },
     itemText: {
         width: itemWidth,
-        textAlign: "center"
+        textAlign: "center",
+        color: Colors.text,
     },
     searchWrapper: {
         height: 25,
-        marginTop: 13,
+        marginTop: 5,
         marginHorizontal: 13,
         justifyContent: "space-between",
         flexDirection: "row"
@@ -189,7 +200,10 @@ const styles = StyleSheet.create({
         ...Fonts.text,
         fontSize: 10,
         marginLeft: 3,
-    }
+    },
+    sliderContainer: {
+        marginHorizontal: 30,
+    },
 })
 
 export default Trombinoscope

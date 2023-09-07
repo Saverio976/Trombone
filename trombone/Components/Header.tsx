@@ -3,17 +3,17 @@ import Fonts from '@app/Fonts';
 import Icons from '@app/Icons';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { apiImage, apiMe } from '@app/Api';
+import { Text, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import { apiImage, apiMe, EmployeeFull } from '@app/Api';
 
 export function Header() {
-    const {value} = store.getState()
-    const [fullName, setFullName] = useState<string>("")
+    const { value } = store.getState()
     const [image, setImage] = useState<string | ArrayBuffer>("")
+    const [me, setMe] = useState<EmployeeFull | undefined>()
     const nav: any = useNavigation()
 
     function adminMock() {
-        setFullName("Admin account")
+        setMe({ name: "admin", surname: "account", id: -1, email: "admin@admin.com", birth_date: "today", gender: "None", work: "Admin", subordinates: [] })
         setImage("https://thispersondoesnotexist.com/")
     }
 
@@ -31,6 +31,14 @@ export function Header() {
         })
     }
 
+    function displayFullName(): string {
+        if (me === undefined) {
+            return "";
+        } else {
+            return me.name + " " + me.surname
+        }
+    }
+
     useEffect(() => {
         if (value === true) {
             adminMock();
@@ -41,20 +49,29 @@ export function Header() {
                 console.error(response)
                 return
             }
-            setFullName(response.json.name + " " + response.json.surname)
+            setMe(response.json)
             getImage(response.json.id)
         })
     }, [])
-    function onOptions () {
-        store.dispatch({type: "logout"});
+    function onOptions() {
+        store.dispatch({ type: "logout" });
         // navigation.reset("Login")
         nav.navigate("Login");
+    }
+    function onPressMyImage() {
+        nav.navigate("UserInfo", { employee: me, img: image})
+    }
+
+    function meImage() {
+        return <TouchableOpacity onPress={onPressMyImage}>
+            <Image style={styles.image} source={{ uri: String(image) }} />
+        </TouchableOpacity>
     }
 
     return (
         <View style={styles.container}>
-            {image === "" ? <ActivityIndicator style={styles.image} /> : <Image style={styles.image} source={{uri: String(image)}}/>}
-            <Text style={styles.name}>{fullName}</Text>
+            {image === "" ? <ActivityIndicator style={styles.image} /> : meImage() }
+            <Text style={styles.name}>{displayFullName()}</Text>
             <TouchableOpacity onPress={onOptions}>
                 <Image style={styles.cogwheel} source={Icons.cogwheel} />
             </TouchableOpacity>
