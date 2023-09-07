@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity } from "react-native";
+import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity, ActivityIndicator } from "react-native";
 import { store } from "../Reducer";
 import { EmployeeFull, EmployeeSmall, apiEmployee, apiEmployees, apiImage } from "@app/Api";
 import Colors from "@app/Colors";
@@ -14,14 +14,14 @@ function Separator() {
 }
 
 const itemWidth = 80;
-const employeeIncrement = 9
+const employeeIncrement = 12
 type SuperEmployee = EmployeeFull & { image: string }
 
 function Trombinoscope(): JSX.Element {
     const state = store.getState();
     const [employeesList, setEmployeesList] = useState<EmployeeSmall[]>([]);
     const [employees, setEmployees] = useState<SuperEmployee[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<number>(0);
     const [index, setIndex] = useState<number>(0)
     const [height, setHeight] = useState<number>(300)
     const nav = useNavigation();
@@ -40,7 +40,6 @@ function Trombinoscope(): JSX.Element {
     }, [nav])
 
     function AddToEmployees() {
-        setLoading(true);
         for (var i = 0; i < employeeIncrement; i++) {
             var j = i + index;
             if (j >= employeesList.length) {
@@ -48,7 +47,7 @@ function Trombinoscope(): JSX.Element {
             }
 
             var currentEmployee = employeesList[j];
-
+            setLoading(loading => loading + 1)
             apiEmployee(currentEmployee.id, state.value).then((response1) => {
                 var employeeFull = response1.json
                 if (employeeFull === undefined) {
@@ -66,24 +65,24 @@ function Trombinoscope(): JSX.Element {
                         //@ts-ignore
                         var superEmployee: SuperEmployee = { ...employeeFull, image: img }
                         setEmployees(employees => [...employees, superEmployee])
+                        setLoading(loading => loading - 1)
                     }
                 })
             })
         }
         setIndex(index + i)
-        setLoading(false);
     }
 
     useEffect(() => {
         if (state.value === true) {
 
         }
-        setLoading(true);
+        setLoading(1);
         apiEmployees(state.value).then(employees => {
             if (employees.json !== undefined) {
                 setEmployeesList(employees.json)
             }
-        }).finally(() => setLoading(false));
+        }).finally(() => setLoading(0));
         AddToEmployees();
     }, []);
 
@@ -93,8 +92,11 @@ function Trombinoscope(): JSX.Element {
         }
     }, [employeesList])
 
-    useEffect(() => {
-    }, [employees])
+    function Footer() {
+        return <View>
+            {loading >= 1 ? <ActivityIndicator animating={true} style={{marginBottom: 20, marginTop: 15,}}/> : <View/>}
+        </View>
+    }
 
     return (<View style={[styles.background, { height }]}>
         <Slider value={height} containerStyle={styles.sliderContainer} onValueChange={num => setHeight(num[0])} minimumValue={250} maximumValue={500} />
@@ -120,9 +122,9 @@ function Trombinoscope(): JSX.Element {
             ItemSeparatorComponent={Separator}
             scrollEnabled={true}
             style={styles.flatList}
-            refreshing={loading}
+            ListFooterComponent={Footer}
             onEndReached={AddToEmployees}
-            onEndReachedThreshold={2}
+            onEndReachedThreshold={6}
             extraData={nav}
         />
     </View>)
