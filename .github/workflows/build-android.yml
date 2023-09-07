@@ -7,6 +7,7 @@ on:
 jobs:
   build-android:
     runs-on: ubuntu-latest
+
     steps: 
       - uses: actions/checkout@v2
 
@@ -19,6 +20,9 @@ jobs:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
 
+      - name: install android sdk
+        run: sudo apt-get update && sudo apt-get install -y android-sdk
+
       - name: Install dependencies
         run: |
           sudo npm install -g yarn
@@ -30,7 +34,7 @@ jobs:
         working-directory: trombone
 
       - name: Build Android Release
-        run: ./gradlew --no-daemon assembleRelease
+        run: ANDROID_HOME=/usr/lib/android-sdk ./gradlew --no-daemon assembleRelease
         working-directory: trombone/android
 
       - name: Upload Artifact
