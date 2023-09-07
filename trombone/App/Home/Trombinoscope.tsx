@@ -93,9 +93,7 @@ function Trombinoscope(): JSX.Element {
     }, [employeesList])
 
     function Footer() {
-        return <View>
-            {loading >= 1 ? <ActivityIndicator animating={true} style={{marginBottom: 20, marginTop: 15,}}/> : <View/>}
-        </View>
+        return <ActivityIndicator animating={loading >= 1} style={{ marginBottom: 20, marginTop: 15, }} />
     }
 
     return (<View style={[styles.background, { height }]}>
