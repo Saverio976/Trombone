@@ -1,3 +1,5 @@
+import { XGROUPAUTHORIZATION, API_URL } from "@env";
+
 export interface RequestReturn<T> {
     text?: string;
     code: number;
@@ -9,8 +11,8 @@ export interface RequestReturn<T> {
 type Token = boolean | string | undefined
 
 // https://masurao.fr/docs
-const url = "https://masurao.fr/api";
-const groupAuthorization = "qkRWGKs55LnaJUowf7VbzUUR4skcllAF"
+const url = API_URL;
+const groupAuthorization = XGROUPAUTHORIZATION;
 
 export async function apiLogin(email: string, password: string): Promise<RequestReturn<{access_token: string}>> {
     const urlLogin = `${url}/employees/login`;

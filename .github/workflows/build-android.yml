@@ -2,52 +2,44 @@ name: Build Android
 
 on:
   push:
-    branches: [main]
+    branches: [main, cicd]
 
 jobs:
-  install-and-test:
+  build-android:
     runs-on: ubuntu-latest
+
     steps: 
       - uses: actions/checkout@v2
 
-      - name: Install yarn
-        run: |
-          sudo apt-get update
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-          export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-          nvm install --lts --default
-          sudo npm install -g yarn
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-      - name: Install npm dependencies
-        run: yarn
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
+
+      - name: install android sdk
+        run: sudo apt-get update && sudo apt-get install -y android-sdk
+
+      - name: Install dependencies
+        run: |
+          sudo npm install -g yarn
+          yarn
         working-directory: trombone
 
       - name: Check typescript
         run: yarn tsc
         working-directory: trombone
 
-  build-android:
-    needs: install-and-test
-    runs-on: ubuntu-latest
-    steps: 
-      - uses: actions/checkout@v2
-
-      - name: Install yarn
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y nodejs npm
-          sudo npm install -g yarn
-
-      - name: Install npm dependencies
-        run: yarn
-        working-directory: trombone
-
       - name: Build Android Release
-        run: ./gradlew assembleRelease
+        if: github.repository != 'EpitechPromo2026/B-SVR-500-TLS-5-1-survivor-matthieu.fraiz'
+        run: ./gradlew --no-daemon assembleRelease
         working-directory: trombone/android
 
       - name: Upload Artifact
+        if: github.repository != 'EpitechPromo2026/B-SVR-500-TLS-5-1-survivor-matthieu.fraiz'
         uses: actions/upload-artifact@v1
         with:
           name: app-release.apk
