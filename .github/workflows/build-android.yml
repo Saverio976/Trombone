@@ -34,7 +34,7 @@ jobs:
         working-directory: trombone
 
       - name: Build Android Release
-        run: ANDROID_HOME=/usr/lib/android-sdk ./gradlew --no-daemon assembleRelease
+        run: ./gradlew --no-daemon assembleRelease
         working-directory: trombone/android
 
       - name: Upload Artifact
