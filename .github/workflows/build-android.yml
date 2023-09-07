@@ -12,7 +12,8 @@ jobs:
 
       - name: Install yarn
         run: |
-          sudo apt install -y nodejs npm
+          sudo apt-get update
+          sudo apt-get install -y nodejs npm
           npm install -g yarn
 
       - name: Install npm dependencies
@@ -31,7 +32,8 @@ jobs:
 
       - name: Install yarn
         run: |
-          sudo apt install -y nodejs npm
+          sudo apt-get update
+          sudo apt-get install -y nodejs npm
           npm install -g yarn
 
       - name: Install npm dependencies
