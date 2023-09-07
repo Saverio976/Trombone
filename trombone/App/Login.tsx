@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import LinearGradient from 'react-native-linear-gradient';
-import Colors, { gradient } from "@app/Colors";
+import Colors from "@app/Colors";
 import Fonts from "@app/Fonts";
-import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import Button from '@app/Components/Button';
 import Icons, { Images } from '@app/Icons';
 import { store } from './Reducer';

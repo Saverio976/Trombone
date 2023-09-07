@@ -1,7 +1,6 @@
 import Colors from '@app/Colors';
 import React from 'react';
 import { View, Text, ViewProps, StyleSheet } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 
 type HomeBackgroundProps = ViewProps & { pageIndex: number }
 
