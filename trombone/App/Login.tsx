@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import Colors from "@app/Colors";
+import Colors, { gradient } from "@app/Colors";
 import Fonts from "@app/Fonts";
 import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import Button from '@app/Components/Button';
@@ -49,55 +49,56 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
             return;
         }
 
-        apiLogin(email, password).then(response => {
+        apiLogin(email, password).then(async response => {
             if (response.code !== 200 || response.json === undefined) {
                 console.error(response)
                 return
             }
-            store.dispatch({type: 'login', token: response.json.access_token})
-            navigation.reset({index: 0, routes: [{name: "Home"}]});
+            store.dispatch({ type: 'login', token: response.json.access_token })
+            await navigation.reset({ index: 0, routes: [{ name: "Home" }] });
         }).finally(() => { setApiCall(false) });
     }
 
+    function magic() {
+        apiCall === true
+    }
 
-    return (<LinearGradient
-        start={{ x: 0, y: 1 }}
-        end={{ x: 1, y: 0 }}
-        colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}
-        locations={[0, 0.1, 1]}
-        style={styles.background}
-    >
-            <Image source={Images.logoCircle} style={styles.logo} />
-            <ActivityIndicator animating={apiCall}/>
-            <View style={styles.loginCard}>
-                <Text style={styles.loginTitle}>
-                    Connexion
+    return (<View style={styles.background}>
+        <Image source={Images.logoCircle} style={styles.logo} />
+        <View style={styles.loginCard}>
+            <Text style={styles.loginTitle}>
+                Connexion
+            </Text>
+            <InputBox
+                icon={Icons.email}
+                setFunc={setEmail}
+                str={email}
+                title="EMAIL"
+                placeholder="name.surname@email.com" />
+            <View style={styles.spacing} />
+            <InputBox icon={Icons.lock}
+                setFunc={setPassword}
+                str={password}
+                title="MOT DE PASSE"
+                hidden
+                placeholder='password' />
+            <Button style={styles.loginButton} onPress={onTryLogin} disabled={email === "" || password === "" || apiCall}>
+                {apiCall === false ? <Text style={styles.loginButtonText}>
+                    Se connecter
                 </Text>
-                <InputBox
-                    icon={Icons.email}
-                    setFunc={setEmail}
-                    str={email}
-                    title="EMAIL"
-                    placeholder="name.surname@email.com" />
-                <View style={styles.spacing} />
-                <InputBox icon={Icons.lock}
-                    setFunc={setPassword}
-                    str={password}
-                    title="MOT DE PASSE"
-                    hidden
-                    placeholder='password' />
-                <Button style={styles.loginButton} onPress={onTryLogin} disabled={email === "" || password === "" || apiCall }>
-                    <Text style={styles.loginButtonText}>
-                        Se connecter
-                    </Text>
-                </Button>
-                <Button style={styles.loginButton} onPress={QuickAdmin}>
-                    <Text style={styles.loginButtonText}>
-                        Admin
-                    </Text>
-                </Button>
-            </View>
-    </LinearGradient>)
+                    : <>
+                        <ActivityIndicator animating={true} style={styles.loginButton2} />
+                        <Text style={[styles.loginButtonText, styles.fakeButton]}> Se connecter</Text>
+                    </>
+                }
+            </Button>
+            <Button style={styles.loginButton} onPress={QuickAdmin}>
+                <Text style={styles.loginButtonText}>
+                    Admin
+                </Text>
+            </Button>
+        </View>
+    </View>)
 }
 
 
@@ -106,16 +107,22 @@ const styles = StyleSheet.create({
     wrapper: {
         width: '100%',
     },
+    fakeButton: {
+        height: 2,
+        marginVertical: -0.5,
+        marginHorizontal: 20
+    },
     logo: {
         width: 118,
         height: 118,
         marginTop: 35,
-        marginBottom: 20,
+        marginBottom: 35,
     },
     background: {
         paddingHorizontal: 10,
         alignItems: "center",
         flex: 1,
+        backgroundColor: Colors.primary,
     },
     loginCard: {
         backgroundColor: Colors.secondary,
@@ -131,7 +138,7 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     },
     inputBox: {
-        backgroundColor: "#fff",
+        backgroundColor: Colors.light,
         elevation: 10,
         shadowColor: "0x40000000",
         borderRadius: 2,
@@ -143,13 +150,18 @@ const styles = StyleSheet.create({
     },
     loginButton: {
         marginTop: 29,
-        backgroundColor: "#565656",
+        backgroundColor: Colors.light,
         alignSelf: "flex-end",
         borderRadius: 10,
+        justifyContent: "center",
+    },
+    loginButton2: {
+        marginVertical: 20,
+        marginHorizontal: 1,
     },
     loginButtonText: {
         ...Fonts.text,
-        color: "#fff",
+        color: Colors.text,
         marginVertical: 19,
         marginHorizontal: 22,
     },
