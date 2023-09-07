@@ -5,27 +5,7 @@ on:
     branches: [main, cicd]
 
 jobs:
-  install-and-test:
-    runs-on: ubuntu-latest
-    steps: 
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: |
-          sudo npm install -g yarn
-          yarn
-        working-directory: trombone
-
-      - name: Check typescript
-        run: yarn tsc
-        working-directory: trombone
-
   build-android:
-    needs: install-and-test
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2
@@ -39,14 +19,21 @@ jobs:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
       - name: Install dependencies
         run: |
           sudo npm install -g yarn
           yarn
         working-directory: trombone
 
+      - name: Check typescript
+        run: yarn tsc
+        working-directory: trombone
+
       - name: Build Android Release
-        run: ./gradlew assembleRelease
+        run: ./gradlew --no-daemon assembleRelease
         working-directory: trombone/android
 
       - name: Upload Artifact
