@@ -19,9 +19,6 @@ jobs:
           distribution: 'temurin' # See 'Supported distributions' for available options
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-
       - name: Install dependencies
         run: |
           sudo npm install -g yarn
