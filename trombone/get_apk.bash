@@ -4,9 +4,15 @@ set -e
 set -x
 
 if [ ! -f './.env' ]; then
-    cp ./.env.default ./.env
-    sed -i "s/=XGROUPAUTHORIZATION/=$XGROUPAUTHORIZATION/g" ./.env
-    sed -i "s/=API_URL/=$API_URL/g" ./.env
+    touch './.env'
+fi
+
+if [ ! grep -q "XGROUPAUTHORIZATION" ./.env ]; then
+    echo "XGROUPAUTHORIZATION=$XGROUPAUTHORIZATION" >> ./.env
+fi
+
+if [ ! grep -q "API_URL" ./.env ]; then
+    echo "API_URL=$API_URL" >> ./.env
 fi
 
 cd android || exit 1
