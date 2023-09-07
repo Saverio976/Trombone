@@ -35,8 +35,11 @@ jobs:
 
       - name: Build Android Release
         if: github.repository != 'EpitechPromo2026/B-SVR-500-TLS-5-1-survivor-matthieu.fraiz'
-        run: ./gradlew --no-daemon assembleRelease
-        working-directory: trombone/android
+        run: |
+          export XGROUPAUTHORIZATION="{{ secrets.XGROUPAUTHORIZATION }}"
+          export API_URL="{{ secrets.GITHUB_TOKEN }}"
+          ./get_apk.bash
+        working-directory: trombone
 
       - name: Upload Artifact
         if: github.repository != 'EpitechPromo2026/B-SVR-500-TLS-5-1-survivor-matthieu.fraiz'
