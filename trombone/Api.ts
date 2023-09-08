@@ -6,6 +6,8 @@ export interface RequestReturn<T> {
     json?: T;
     blob?: Blob;
     ok: boolean;
+    error?: any
+    errorDetail?: { url: string, body?: string, method: string}
 };
 
 type Token = boolean | string | undefined
@@ -35,35 +37,49 @@ export async function apiLogin(email: string, password: string): Promise<Request
         }
         return {code: 200, ok: true, json: await resp.json()}
     } catch (error) {
-        return {code: 500, ok: false}
+        const detail = {
+            url,
+            method: "post",
+        }
+        console.error(error)
+        return {code: 500, ok: false, error, errorDetail: detail}
     }
 }
 
 async function myFetch(endpoint: string, token: Token, output: 'blob' | 'json' | 'text', body?: string, method: string = "GET"): Promise<RequestReturn<any>> {
-    const resp = await fetch(endpoint, {
-        method,
-        headers: {
-            "X-Group-Authorization" : "qkRWGKs55LnaJUowf7VbzUUR4skcllAF",
-            "accept": "application/json",
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token,
-        },
-        body
-    })
-    if (resp.status !== 200) {
-        console.log('resp', resp)
-        return {code: 500, ok: false}
+    try {
+        const resp = await fetch(endpoint, {
+            method,
+            headers: {
+                "X-Group-Authorization" : "qkRWGKs55LnaJUowf7VbzUUR4skcllAF",
+                "accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token,
+            },
+            body
+        })
+            if (resp.status !== 200) {
+                console.log('resp', resp)
+                return {code: resp.status, ok: false, error: resp.statusText}
+            }
+            if (output === 'blob') {
+                return {code: 200, ok: true, blob: await resp.blob()}
+            }
+            if (output === 'json') {
+                return {code: 200, ok: true, json: await resp.json()}
+            }
+            if (output === 'text') {
+                return {code: 200, ok: true, text: await resp.text()}
+            }
+            return {code: 500, ok: false, error: "Unknown response type"}
+    } catch (error) {
+        const detail = {
+            url: endpoint,
+            method,
+            body,
+        }
+        return {code: 500, ok: false, error, errorDetail: detail}
     }
-    if (output === 'blob') {
-        return {code: 200, ok: true, blob: await resp.blob()}
-    }
-    if (output === 'json') {
-        return {code: 200, ok: true, json: await resp.json()}
-    }
-    if (output === 'text') {
-        return {code: 200, ok: true, text: await resp.text()}
-    }
-    return {code: 500, ok: false}
 }
 
 export async function apiImage(id: number, token: Token): Promise<RequestReturn<{}>> {

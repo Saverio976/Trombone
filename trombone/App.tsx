@@ -27,6 +27,7 @@ import { MyTabBar as NavFooter } from './Components/Footer';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import UserInfoScreen from './App/UserPage';
 import { EmployeeFull } from './Api';
+import Toast from 'react-native-toast-message';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -56,23 +57,26 @@ type RootStackParamList = {
   }
 }
 
-export type UserInfoScreenParams  = NativeStackScreenProps<RootStackParamList, 'UserInfo'>;
+export type UserInfoScreenParams = NativeStackScreenProps<RootStackParamList, 'UserInfo'>;
 
 function App(): JSX.Element {
 
   const Stack = createNativeStackNavigator<RootStackParamList>();
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
-          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-          <Stack.Group screenOptions={{ presentation: "transparentModal" }} >
-            <Stack.Screen  name="UserInfo" component={UserInfoScreen} options={{ headerShown: false }} />
-          </Stack.Group>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+    <>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
+            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+            <Stack.Group screenOptions={{ presentation: "transparentModal" }} >
+              <Stack.Screen name="UserInfo" component={UserInfoScreen} options={{ headerShown: false }} />
+            </Stack.Group>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+      <Toast />
+    </>
   )
 }
 
