@@ -30,7 +30,7 @@ function UserInfoScreen({ navigation, route }: UserInfoScreenParams): JSX.Elemen
                         <Image source={Icons.lock} />
                     </TouchableOpacity>
                     <Image style={styles.profilePicture} source={{ uri: img }} />
-                    <Text numberOfLines={3} style={styles.names}>{employee.name} {employee.name} {employee.name} {employee.name} {employee.name} {employee.name} {employee.surname}</Text>
+                    <Text numberOfLines={3} style={styles.names}>{employee.name} {employee.surname}</Text>
                     <Text onPress={OpenEmail} style={styles.emailText}>{employee.email}</Text>
                     <Text style={{ fontSize: 30 }}>{employee.birth_date}</Text>
                     <Text style={{ fontSize: 30 }}>{employee.work}</Text>
