@@ -6,6 +6,7 @@ import Button from '@app/Components/Button';
 import Icons, { Images } from '@app/Icons';
 import { store } from './Reducer';
 import { apiLogin } from '@app/Api';
+import Toast, { ErrorToast, SuccessToast } from 'react-native-toast-message';
 
 interface inputBoxProps {
     icon: any;
@@ -49,17 +50,25 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
         }
 
         apiLogin(email, password).then(async response => {
-            if (response.code !== 200 || response.json === undefined) {
-                console.error(response)
+            if (response.code === 401) {
+                Toast.show({
+                    type: "error",
+                    text1: "Connexion échoué",
+                    text2: "Email ou mot de passe invalide",
+                })
+                return
+            } else if (response.code !== 200 || response.json === undefined) {
+                Toast.show({
+                    type: "error",
+                    text1: "Connexion échoué",
+                    text2: "Erreur fatale du server, connexion impossible",
+                })
                 return
             }
             store.dispatch({ type: 'login', token: response.json.access_token })
+            Toast.show({text1: "Connexion réussie"})
             await navigation.reset({ index: 0, routes: [{ name: "Home" }] });
         }).finally(() => { setApiCall(false) });
-    }
-
-    function magic() {
-        apiCall === true
     }
 
     return (<View style={styles.background}>
