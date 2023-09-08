@@ -3,7 +3,7 @@ name: Publish
 on: [push, pull_request]
 
 env:
-  MIRROR_URL: git@github.com:EpitechPromo2026/B-SVR-500-TLS-5-1-survivor-matthieu.fraiz.git
+  MIRROR_URL: git@github.com:EpitechPromo2026/B-SVR-500-TLS-5-1-survivornext-adelaide.chanteux.git
 
 jobs:
   publish:
