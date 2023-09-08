@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
     },
     inputBoxTitle: {
         ...Fonts.text,
+        color: Colors.text,
         marginTop: 6,
     },
     innerInputBox: {

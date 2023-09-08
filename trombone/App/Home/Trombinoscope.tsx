@@ -101,7 +101,7 @@ function Trombinoscope(): JSX.Element {
         <View style={styles.searchWrapper}>
             <View style={styles.searchBox}>
                 <Image source={Icons.search} style={styles.searchIcon} />
-                <TextInput placeholderTextColor="#00000066" style={{ padding: 0 }} placeholder={String(height)} />
+                <TextInput placeholderTextColor="#00000066" style={{ padding: 0 }} placeholder="Rechercher..." />
             </View>
             <TouchableOpacity style={styles.filterButton}>
                 <>
