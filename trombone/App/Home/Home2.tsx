@@ -6,7 +6,7 @@ import { Slider } from '@miblanchard/react-native-slider';
 
 export default function Home2() {
     return (
-        <HomeBackground pageIndex={2} style={{justifyContent: 'space-between', flex: 1,}}>
+        <HomeBackground pageIndex={2} style={{justifyContent: 'space-between', flex: 1, padding: 10}}>
             <Trombinoscope/>
         </HomeBackground>
     );
