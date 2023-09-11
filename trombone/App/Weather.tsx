@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Toast from "react-native-toast-message";
 import Fonts from "@app/Fonts";
 import { Images } from "@app/Icons";
+import { LinearGradient } from 'react-native-gradients';
 
 // const c = "clear_sky"
 // const m = "mainly_clear"
@@ -32,6 +33,27 @@ const codeTable = {
     96: "th", 99: "th",
 }
 
+const c1 = { color: "#ff0000", opacity: '1' }
+const c2 = { color: "#00ff00", opacity: '1' }
+const c3 = { color: "#0000ff", opacity: '1' }
+const c4 = { color: "#ff00ff", opacity: '1' }
+const c5 = { color: "#ffff00", opacity: '1' }
+
+const gradientTable = {
+    "c": [{ ...c1, offset: '0%' }, { ...c2, offset: '100%' }],
+    "m": [{ ...c1, offset: '0%' }, { ...c3, offset: '100%' }],
+    "f": [{ ...c1, offset: '0%' }, { ...c4, offset: '100%' }],
+    "d": [{ ...c1, offset: '0%' }, { ...c5, offset: '100%' }],
+    "r": [{ ...c2, offset: '0%' }, { ...c1, offset: '100%' }],
+    "fr": [{ ...c2, offset: '0%' }, { ...c3, offset: '100%' }],
+    "sf": [{ ...c2, offset: '0%' }, { ...c4, offset: '100%' }],
+    "sg": [{ ...c2, offset: '0%' }, { ...c5, offset: '100%' }],
+    "rs": [{ ...c3, offset: '0%' }, { ...c4, offset: '100%' }],
+    "ss": [{ ...c3, offset: '0%' }, { ...c5, offset: '100%' }],
+    "t": [{ ...c4, offset: '0%' }, { ...c5, offset: '100%' }],
+    "th": ["#000", "#fff"],
+}
+
 interface WeatherApiResponse {
     timezone: string;
     timezone_abbreviation: string;
@@ -47,7 +69,6 @@ interface WeatherApiResponse {
         weathercode: number[];
     }
 }
-
 function WeatherWidget(): JSX.Element {
     const [rawData, setRawData] = useState<WeatherApiResponse | undefined>(undefined)
     const [temp, setTemp] = useState<number | undefined>(undefined)
@@ -106,8 +127,14 @@ function WeatherWidget(): JSX.Element {
     }
 
     return <View style={styles.container}>
+        <View style={styles.absolute}>
+            {/*@ts-expect-error*/}
+            <LinearGradient colorList={gradientTable[weatherCode === undefined ? "m" : codeTable[weatherCode]]} angle={90} />
+        </View>
         <View style={styles.tempContainer}>
-            <Text style={styles.temp} numberOfLines={1}>{temp === undefined ? "27°C" : String(temp) + rawData?.hourly_units.temperature_2m}</Text>
+            <Text style={styles.temp} numberOfLines={1}>{temp === undefined ? " " : String(temp) + rawData?.hourly_units.temperature_2m}</Text>
+        </View>
+        <View style={{ width: "100%", alignContent: "center", backgroundColor: "white", flexDirection: "column" }} >
         </View>
         <View style={styles.iconWrapper}>
             {weatherCode === undefined ? <View style={styles.icon} /> :
@@ -115,18 +142,24 @@ function WeatherWidget(): JSX.Element {
                 <Image style={styles.icon} source={Images.weather[codeTable[weatherCode]]} />
             }
         </View>
-
-    </View>
+    </View >
 }
 
 const styles = StyleSheet.create({
+    absolute: {
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    },
     container: {
         backgroundColor: "skyblue",
         borderRadius: 10,
 
     },
     tempContainer: {
-        alignItems: "center"
+        alignItems: "center",
     },
     temp: {
         ...Fonts.H1
