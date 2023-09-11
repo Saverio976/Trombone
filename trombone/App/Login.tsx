@@ -6,7 +6,7 @@ import Button from '@app/Components/Button';
 import Icons, { Images } from '@app/Icons';
 import { store } from './Reducer';
 import { apiLogin } from '@app/Api';
-import Toast, { ErrorToast, SuccessToast } from 'react-native-toast-message';
+import Toast from 'react-native-toast-message';
 
 interface inputBoxProps {
     icon: any;
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         borderBottomColor: "#000",
         // borderBottomWidth: 1,
         color: "#000",
-    }
+    },
 })
 
 export default LoginPage;
