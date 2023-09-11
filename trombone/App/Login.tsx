@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         borderRadius: 5000,
         justifyContent: "center",
-
+        paddingHorizontal: 30,
     },
     loginButtonText: {
         ...Fonts.text,
@@ -171,7 +171,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.secondary,
         borderRadius: 50,
         alignSelf: "center",
-
     }
 })
 
