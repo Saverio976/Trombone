@@ -30,9 +30,9 @@
 		37F249CC281B42C196749550 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AE2D5ECC4A847B88C563DD6 /* Rubik-Regular.ttf */; };
 		A2001A99B6E242A8BCBDE5E4 /* Rubik-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7E59D3A8CE9F43848013D205 /* Rubik-SemiBold.ttf */; };
 		64CE88FBD62249678A826C0C /* Rubik-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A799608A9A2244B5A8652C3A /* Rubik-SemiBoldItalic.ttf */; };
-		A11BED38C9164F94B5892A12 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 08C87D2D1BB5482ABB2F824B /* OFL.txt */; };
 		7CA3D7A600144CB7AA8C40DB /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = BFFD42E72E3643258552F2D4 /* README.txt */; };
-		BC860D82AC514A4AB3E77178 /* Rubik.zip in Resources */ = {isa = PBXBuildFile; fileRef = 09B6000462C241D09C4A06F5 /* Rubik.zip */; };
+		E2E362DB8CEF442E832BE8A4 /* Koulen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82A6E462BF5C4C15B3C18C4B /* Koulen-Regular.ttf */; };
+		9561571A257C44E08A620618 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 644B71F6573747E286ADD45C /* OFL.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,9 +79,9 @@
 		2AE2D5ECC4A847B88C563DD6 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; name = "Rubik-Regular.ttf"; path = "../assets/fonts/static/Rubik-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		7E59D3A8CE9F43848013D205 /* Rubik-SemiBold.ttf */ = {isa = PBXFileReference; name = "Rubik-SemiBold.ttf"; path = "../assets/fonts/static/Rubik-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A799608A9A2244B5A8652C3A /* Rubik-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "Rubik-SemiBoldItalic.ttf"; path = "../assets/fonts/static/Rubik-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		08C87D2D1BB5482ABB2F824B /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		BFFD42E72E3643258552F2D4 /* README.txt */ = {isa = PBXFileReference; name = "README.txt"; path = "../assets/fonts/README.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		09B6000462C241D09C4A06F5 /* Rubik.zip */ = {isa = PBXFileReference; name = "Rubik.zip"; path = "../assets/fonts/Rubik.zip"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		82A6E462BF5C4C15B3C18C4B /* Koulen-Regular.ttf */ = {isa = PBXFileReference; name = "Koulen-Regular.ttf"; path = "../assets/fonts/Koulen-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		644B71F6573747E286ADD45C /* OFL.txt */ = {isa = PBXFileReference; name = "OFL.txt"; path = "../assets/fonts/OFL.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,9 +206,9 @@
 				2AE2D5ECC4A847B88C563DD6 /* Rubik-Regular.ttf */,
 				7E59D3A8CE9F43848013D205 /* Rubik-SemiBold.ttf */,
 				A799608A9A2244B5A8652C3A /* Rubik-SemiBoldItalic.ttf */,
-				08C87D2D1BB5482ABB2F824B /* OFL.txt */,
 				BFFD42E72E3643258552F2D4 /* README.txt */,
-				09B6000462C241D09C4A06F5 /* Rubik.zip */,
+				82A6E462BF5C4C15B3C18C4B /* Koulen-Regular.ttf */,
+				644B71F6573747E286ADD45C /* OFL.txt */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -326,9 +326,9 @@
 				37F249CC281B42C196749550 /* Rubik-Regular.ttf in Resources */,
 				A2001A99B6E242A8BCBDE5E4 /* Rubik-SemiBold.ttf in Resources */,
 				64CE88FBD62249678A826C0C /* Rubik-SemiBoldItalic.ttf in Resources */,
-				A11BED38C9164F94B5892A12 /* OFL.txt in Resources */,
 				7CA3D7A600144CB7AA8C40DB /* README.txt in Resources */,
-				BC860D82AC514A4AB3E77178 /* Rubik.zip in Resources */,
+				E2E362DB8CEF442E832BE8A4 /* Koulen-Regular.ttf in Resources */,
+				9561571A257C44E08A620618 /* OFL.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

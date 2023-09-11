@@ -2,8 +2,12 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/fonts/Koulen-Regular.ttf",
+      "sha1": "f7e8dded278ed9b0c78fb3680ec4cb64f32f04f5"
+    },
+    {
       "path": "assets/fonts/OFL.txt",
-      "sha1": "6c0ecf267e5c993d914a9bec39a276b55f2d9075"
+      "sha1": "0de4dac1b53dc21d306268186ecc5c29c5799c37"
     },
     {
       "path": "assets/fonts/README.txt",
@@ -16,10 +20,6 @@
     {
       "path": "assets/fonts/Rubik-VariableFont_wght.ttf",
       "sha1": "80fbecd6d6cb21096b3e0277222e696c77ceb7eb"
-    },
-    {
-      "path": "assets/fonts/Rubik.zip",
-      "sha1": "50703df405c953c24673dbc6ccb98b1ebf7433c3"
     },
     {
       "path": "assets/fonts/static/Rubik-Black.ttf",

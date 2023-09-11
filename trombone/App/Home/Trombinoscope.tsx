@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity, ActivityIndicator } from "react-native";
+import { FlatList, Image, StyleSheet, Text, View, TextInput, TouchableHighlight, TouchableOpacity, ActivityIndicator, Dimensions } from "react-native";
 import { store } from "../Reducer";
 import { EmployeeFull, EmployeeSmall, apiEmployee, apiEmployees, apiImage } from "@app/Api";
 import Colors from "@app/Colors";
@@ -13,17 +13,16 @@ function Separator() {
     return <View style={{ height: 30 }} />
 }
 
-const itemWidth = 80;
 const employeeIncrement = 12
 type SuperEmployee = EmployeeFull & { image: string }
 
+const itemWidth = ((Dimensions.get("window").width - 50) / 3) * (3/4);
 function Trombinoscope(): JSX.Element {
     const state = store.getState();
     const [employeesList, setEmployeesList] = useState<EmployeeSmall[]>([]);
     const [employees, setEmployees] = useState<SuperEmployee[]>([]);
     const [loading, setLoading] = useState<number>(0);
     const [index, setIndex] = useState<number>(0)
-    const [height, setHeight] = useState<number>(300)
     const nav = useNavigation();
 
     const renderItem = useCallback((data: { item: SuperEmployee, index: number }): JSX.Element => {
@@ -96,8 +95,7 @@ function Trombinoscope(): JSX.Element {
         return <ActivityIndicator animating={loading >= 1} style={{ marginBottom: 20, marginTop: 15, }} />
     }
 
-    return (<View style={[styles.background, { height }]}>
-        <Slider value={height} containerStyle={styles.sliderContainer} onValueChange={num => setHeight(num[0])} minimumValue={250} maximumValue={500} />
+    return (<View style={styles.background}>
         <View style={styles.searchWrapper}>
             <View style={styles.searchBox}>
                 <Image source={Icons.search} style={styles.searchIcon} />
@@ -132,8 +130,8 @@ const styles = StyleSheet.create({
     background: {
         backgroundColor: Colors.secondary,
         borderRadius: 10,
-        borderColor: "black",
         elevation: 10,
+        flex: 1,
     },
     columnWrapper: {
         justifyContent: "space-between"
@@ -200,9 +198,6 @@ const styles = StyleSheet.create({
         ...Fonts.text,
         fontSize: 10,
         marginLeft: 3,
-    },
-    sliderContainer: {
-        marginHorizontal: 30,
     },
 })
 
