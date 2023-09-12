@@ -1,9 +1,10 @@
 import Colors from '@app/Colors';
 import Icons from '@app/Icons';
 import Button from '@app/Components/Button';
-import { Animated, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Animated, View, StyleSheet, Image, } from 'react-native';
+import { useEffect, useRef } from 'react';
 
-function  navigateName(navigation: any, name: string, key: string) {
+function navigateName(navigation: any, name: string, key: string) {
     const event = navigation.emit({
       type: 'tabPress',
       target: key,
@@ -17,110 +18,66 @@ function  navigateName(navigation: any, name: string, key: string) {
 }
 
 export function MyTabBar({ state, descriptors, navigation, position }: any) {
-  const goLeft = () => {
-      let route = undefined
-      if (state.index === 0) {
-          route = state.routes[state.routeNames.length - 1]
-      } else {
-          route = state.routes[state.index - 1]
-      }
+    const routeTrombi = state.routes.find((route: any) => route.name === 'Trombi') // Trombi
+    const routeWidget = state.routes.find((route: any) => route.name === 'Widget') // Widget
 
-      navigateName(navigation, route.name, route.key)
-  }
-  const goRight = () => {
-      let route = undefined;
-      if (state.index === state.routeNames.length - 1) {
-          route = state.routes[0]
-      } else {
-          route = state.routes[state.index + 1]
-      }
+    const angleAnim = useRef(new Animated.Value(180)).current;
 
-      navigateName(navigation, route.name, route.key)
-  }
+    const rotateRight = () => {
+        // Will change fadeAnim value to 1 in 5 seconds
+        Animated.timing(angleAnim, {
+        toValue: 0,
+        duration: 1000,
+        useNativeDriver: true,
+        }).start();
+    };
 
-  return (
-    <View style={styles.container}>
-        <Button onPress={() => { goLeft() }} >
-            <Image source={Icons.arrowLeft} style={styles.arrowLeftIcon} />
-        </Button>
-        <View style={{ flexDirection: 'row' }}>
-          {state.routes.map((route: any, index: any) => {
-            const { options } = descriptors[route.key];
+    const rotateLeft = () => {
+        // Will change fadeAnim value to 0 in 3 seconds
+        Animated.timing(angleAnim, {
+        toValue: 180,
+        duration: 1000,
+        useNativeDriver: true,
+        }).start();
+    };
 
-            const isFocused = state.index === index;
+    useEffect(() => {
+        if (state.index === 0)
+            rotateLeft();
+        if (state.index === 1)
+            rotateRight();
+    }, [state.index]);
 
-            const onPress = () => {
-              navigateName(navigation, route.name, route.key)
-            };
+    const changeRoute = () => {
+        if (state.index === 0)
+            navigateName(navigation, routeWidget.name, routeWidget.key);
+        if (state.index === 1)
+            navigateName(navigation, routeTrombi.name, routeTrombi.key);
+    }
 
-            const onLongPress = () => {
-              navigation.emit({
-                type: 'tabLongPress',
-                target: route.key,
-              });
-            };
-
-            return (
-              <TouchableOpacity
-                accessibilityRole="button"
-                accessibilityState={isFocused ? { selected: true } : {}}
-                accessibilityLabel={options.tabBarAccessibilityLabel}
-                testID={options.tabBarTestID}
-                onPress={onPress}
-                onLongPress={onLongPress}
-                key={index}
-              >
-                <Animated.View style={(isFocused ? styles.circlePlain : styles.circleEmpty)} />
-              </TouchableOpacity>
-            );
-          })}
+    return (
+        <View style={styles.container}>
+            <Button onPress={() => changeRoute()}>
+                <Animated.View
+                    style={{
+                        transform: [{
+                            rotate: angleAnim.interpolate({ inputRange: [0, 180], outputRange: ['0deg', '180deg'] })
+                        }]
+                    }}
+                >
+                    <Image source={Icons.arrow} style={ styles.arrow } />
+                </Animated.View>
+            </Button>
         </View>
-        <Button onPress={() => { goRight() }} >
-            <Image source={Icons.arrowRight} style={styles.arrowRightIcon} />
-        </Button>
-    </View>
-  );
+    )
 }
 
+
 const styles = StyleSheet.create({
-    circlePlain: {
-        marginVertical: 10,
-        width: 20,
-        height: 20,
-        borderRadius: 50000,
-        borderWidth: 2,
-        borderColor: '#000',
-        backgroundColor: Colors.gradient1,
-        marginHorizontal: 5
-    },
-    circleEmpty: {
-        marginVertical: 10,
-        width: 20,
-        height: 20,
-        borderRadius: 50000,
-        borderWidth: 2,
-        borderColor: '#000',
-        backgroundColor: Colors.secondary,
-        marginHorizontal: 5
-    },
     container: {
         backgroundColor: Colors.secondary,
-        elevation: 10,
-        shadowColor: "0x40000000",
-        borderRadius: 2,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignContent: "center",
     },
-    arrowLeftIcon: {
-        marginLeft: 14,
-        marginRight: 15,
-        width: 33,
-        height: 33,
-        alignSelf: "center",
-        resizeMode: "contain",
-    },
-    arrowRightIcon: {
+    arrow: {
         marginLeft: 14,
         marginRight: 15,
         width: 33,
