@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.secondary,
         borderRadius: 10,
         elevation: 10,
-        flex: 1,
+        height: 500,
     },
     columnWrapper: {
         justifyContent: "space-between"

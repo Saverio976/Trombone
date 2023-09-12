@@ -20,7 +20,7 @@ export const newNote = async (note: string) => {
         return
     }
     const oldJson: Note[] = JSON.parse(old);
-    oldJson.push(nnote);
+    oldJson.unshift(nnote);
     await AsyncStorage.setItem(NOTE_KEY, JSON.stringify(oldJson));
 }
 

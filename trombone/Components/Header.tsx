@@ -54,9 +54,9 @@ export function Header() {
         })
     }, [])
     function onOptions() {
-        store.dispatch({ type: "logout" });
+        // store.dispatch({ type: "logout" });
         // navigation.reset("Login")
-        nav.navigate("Login");
+        nav.navigate("Chat", {employee: me, img: image, partner: {id: 1, fullname: "Hello world!"}});
     }
     function onPressMyImage() {
         nav.navigate("UserInfo", { employee: me, img: image})

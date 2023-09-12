@@ -8,6 +8,10 @@ import { store } from './Reducer';
 import { apiLogin } from '@app/Api';
 import Toast, { ErrorToast, SuccessToast } from 'react-native-toast-message';
 import { Modal, TextInput } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { auth } from '@app/firebase';
+import { signInAnonymously } from 'firebase/auth';
+
 
 interface inputBoxProps {
     hidden?: boolean;
@@ -42,6 +46,7 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
     function QuickAdmin() {
         console.log("Admin Login");
         store.dispatch({ type: 'adminLogin' })
+        signInAnonymously(auth)
         navigation.reset({ index: 0, routes: [{ name: "Home" }] });
     }
 
@@ -72,6 +77,7 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
             }
             store.dispatch({ type: 'login', token: response.json.access_token })
             Toast.show({ text1: "Connexion réussie" })
+            signInAnonymously(auth)
             await navigation.reset({ index: 0, routes: [{ name: "Home" }] });
         }).finally(() => { setApiCall(false) });
     }
@@ -132,6 +138,9 @@ const styles = StyleSheet.create({
     },
     logo: {
         alignSelf: "center",
+        width: "80%",
+        height: undefined,
+        aspectRatio: 290 / 98
     },
     background: {
         height: "100%",

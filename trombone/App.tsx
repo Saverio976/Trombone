@@ -28,10 +28,23 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import UserInfoScreen from './App/UserPage';
 import { EmployeeFull } from './Api';
 import Toast from 'react-native-toast-message';
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import Chat from './App/Chat/Chat';
+
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
+
+
+type TabStackParamList = {
+  Home1: undefined,
+  Home2: undefined,
+  Home3: undefined,
+  Home4: undefined,
+}
+
+export type ChatScreenParams = NativeStackScreenProps<RootStackParamList, "Chat">
 
 function Home(): JSX.Element {
   const Tab = createMaterialTopTabNavigator();
@@ -55,6 +68,14 @@ type RootStackParamList = {
     employee: EmployeeFull,
     img: string,
   }
+  Chat: {
+    partner: {
+      id: number,
+      fullname: string,
+    },
+    employee: EmployeeFull,
+    img: string,
+  },
 }
 
 export type UserInfoScreenParams = NativeStackScreenProps<RootStackParamList, 'UserInfo'>;
@@ -65,15 +86,18 @@ function App(): JSX.Element {
   return (
     <>
       <Provider store={store}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
-            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-            <Stack.Group screenOptions={{ presentation: "transparentModal" }} >
-              <Stack.Screen name="UserInfo" component={UserInfoScreen} options={{ headerShown: false }} />
-            </Stack.Group>
-          </Stack.Navigator>
-        </NavigationContainer>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Login">
+              <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
+              <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+              <Stack.Screen name="Chat" component={Chat} options={{ headerShown: false }} />
+              <Stack.Group screenOptions={{ presentation: "transparentModal" }} >
+                <Stack.Screen name="UserInfo" component={UserInfoScreen} options={{ headerShown: false }} />
+              </Stack.Group>
+            </Stack.Navigator>
+          </NavigationContainer>
+        </GestureHandlerRootView>
       </Provider>
       <Toast />
     </>
