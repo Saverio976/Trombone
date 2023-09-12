@@ -33,26 +33,22 @@ const codeTable = {
     96: "th", 99: "th",
 }
 
-const c1 = { color: "#ff0000", opacity: '1' }
-const c2 = { color: "#00ff00", opacity: '1' }
-const c3 = { color: "#0000ff", opacity: '1' }
-const c4 = { color: "#ff00ff", opacity: '1' }
-const c5 = { color: "#ffff00", opacity: '1' }
 
 const gradientTable = {
-    "c": [{ ...c1, offset: '0%' }, { ...c2, offset: '100%' }],
-    "m": [{ ...c1, offset: '0%' }, { ...c3, offset: '100%' }],
-    "f": [{ ...c1, offset: '0%' }, { ...c4, offset: '100%' }],
-    "d": [{ ...c1, offset: '0%' }, { ...c5, offset: '100%' }],
-    "r": [{ ...c2, offset: '0%' }, { ...c1, offset: '100%' }],
-    "fr": [{ ...c2, offset: '0%' }, { ...c3, offset: '100%' }],
-    "sf": [{ ...c2, offset: '0%' }, { ...c4, offset: '100%' }],
-    "sg": [{ ...c2, offset: '0%' }, { ...c5, offset: '100%' }],
-    "rs": [{ ...c3, offset: '0%' }, { ...c4, offset: '100%' }],
-    "ss": [{ ...c3, offset: '0%' }, { ...c5, offset: '100%' }],
-    "t": [{ ...c4, offset: '0%' }, { ...c5, offset: '100%' }],
-    "th": ["#000", "#fff"],
+    "c": [{ color: "#30a8ff", offset: '100%' }, { color: "#71ccff", offset: '0%' }],
+    "m": [{ color: "#6cd3ff", offset: '100%' }, { color: "#78abba", offset: '0%' }],
+    "f": [{ color: "#aec9d1", offset: '0%' }, { color: "#77a2bd", offset: '100%' }],
+    "d": [{ color: "#b8d7df", offset: '0%' }, { color: "#5d92b3", offset: '100%' }],
+    "r": [{ color: "#b8d7df", offset: '0%' }, { color: "#5d92b3", offset: '100%' }],
+    "fr": [{ color: "#d9eaef", offset: '0%' }, { color: "#5d92b3", offset: '100%' }],
+    "sf": [{ color: "#d9eaef", offset: '0%' }, { color: "#5d92b3", offset: '100%' }],
+    "sg": [{ color: "#d9eaef", offset: '0%' }, { color: "#5d92b3", offset: '100%' }],
+    "rs": [{ color: "#b8d7df", offset: '0%' }, { color: "#5d92b3", offset: '100%' }],
+    "ss": [{ color: "#d9eaef", offset: '0%' }, { color: "#3e9dd8", offset: '100%' }],
+    "t": [{ color: "#7bbacd", offset: '0%' }, { color: "#163d56", offset: '100%' }],
+    "th": [{ color: "#7bbacd", offset: '0%' }, { color: "#163d56", offset: '100%' }],
 }
+
 
 interface WeatherApiResponse {
     timezone: string;
@@ -131,16 +127,16 @@ function WeatherWidget(): JSX.Element {
             {/*@ts-expect-error*/}
             <LinearGradient colorList={gradientTable[weatherCode === undefined ? "m" : codeTable[weatherCode]]} angle={90} />
         </View>
-        <View style={styles.tempContainer}>
-            <Text style={styles.temp} numberOfLines={1}>{temp === undefined ? " " : String(temp) + rawData?.hourly_units.temperature_2m}</Text>
-        </View>
-        <View style={{ width: "100%", alignContent: "center", backgroundColor: "white", flexDirection: "column" }} >
-        </View>
         <View style={styles.iconWrapper}>
             {weatherCode === undefined ? <View style={styles.icon} /> :
                 //@ts-expect-error
                 <Image style={styles.icon} source={Images.weather[codeTable[weatherCode]]} />
             }
+        </View>
+        <View style={styles.tempContainer}>
+            <Text style={styles.temp} numberOfLines={1}>{temp === undefined ? " " : String(temp) + rawData?.hourly_units.temperature_2m}</Text>
+        </View>
+        <View style={{ width: "100%", alignContent: "center", backgroundColor: "white", flexDirection: "column" }} >
         </View>
     </View >
 }
@@ -156,7 +152,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "skyblue",
         borderRadius: 10,
-
+        width: "60%",
+        alignSelf: "center",
+        overflow: "hidden",
     },
     tempContainer: {
         alignItems: "center",

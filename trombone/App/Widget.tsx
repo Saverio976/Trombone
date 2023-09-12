@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
     widgetWrapper: {
         borderRadius: 10,
         alignSelf: "stretch",
-        elevation: 10,
-        backgroundColor: "white",
+        backgroundColor: "transparent",
         marginHorizontal: 24,
     }
 })
