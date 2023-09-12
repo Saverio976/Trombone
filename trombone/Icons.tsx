@@ -1,8 +1,7 @@
 const Icons = {
     email: require("./assets/icons/email.png"),
     lock: require("./assets/icons/lock.png"),
-    arrowLeft: require("./assets/icons/arrow-left.png"),
-    arrowRight: require("./assets/icons/arrow-right.png"),
+    arrow: require("./assets/icons/arrow.png"),
     cogwheel: require("./assets/icons/cogwheel.png"),
     search: require("./assets/icons/magnifying_glass.png"),
     sort: require("./assets/icons/sort.png"),
