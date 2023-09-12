@@ -17,7 +17,6 @@ function HomeBackground(props: HomeBackgroundProps) {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        // padding: 20,
         backgroundColor: Colors.primary,
     },
 })
