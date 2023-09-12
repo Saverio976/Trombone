@@ -6,6 +6,7 @@ import Trombinoscope from './Trombinoscope';
 export default function Home2({}) {
 
     return (<HomeBackground pageIndex={2}>
+        <Trombinoscope/>
     </HomeBackground>
     );
 }

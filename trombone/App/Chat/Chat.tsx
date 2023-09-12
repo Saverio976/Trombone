@@ -145,8 +145,7 @@ const Chat = ({ navigation, route }: ChatScreenParams) => {
 const styles = StyleSheet.create({
     bubbleBase: {
         elevation: 5,
-        marginTop
-        : 10,
+        marginTop: 10,
         borderTopLeftRadius: 20,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
