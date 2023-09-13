@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { apiImage, apiMe, EmployeeFull } from '@app/Api';
+import Toast from "react-native-toast-message";
 
 export function Header() {
     const { value } = store.getState()
@@ -20,6 +21,11 @@ export function Header() {
     function getImage(id: number) {
         apiImage(id, value).then(response => {
             if (response.code !== 200 || response.blob === undefined) {
+                Toast.show({
+                    type: "error",
+                    text1: "Erreur fatale",
+                    text2: "Impossible de récupérer l'image de l'utilisateur",
+                })
                 return
             }
             const fileReaderInstance = new FileReader();
@@ -46,6 +52,11 @@ export function Header() {
         }
         apiMe(value).then(response => {
             if (response.code !== 200 || response.json === undefined) {
+                Toast.show({
+                    type: "error",
+                    text1: "Erreur fatale",
+                    text2: "Impossible de récupérer les données de l'utilisateur",
+                })
                 console.error(response)
                 return
             }
