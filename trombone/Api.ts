@@ -13,17 +13,22 @@ export interface RequestReturn<T> {
 type Token = boolean | string | undefined
 
 // https://masurao.fr/docs
-const url = API_URL;
-const groupAuthorization = XGROUPAUTHORIZATION;
+async function getUrlApi() {
+    return API_URL
+}
+// https://masurao.fr/docs
+async function getGroupAuthorization() {
+    return XGROUPAUTHORIZATION
+}
 
 export async function apiLogin(email: string, password: string): Promise<RequestReturn<{access_token: string}>> {
-    const urlLogin = `${url}/employees/login`;
+    const urlLogin = `${await getUrlApi()}/employees/login`;
 
     try {
         const resp = await fetch(urlLogin, {
             method: "POST",
             headers: {
-                "X-Group-Authorization" : groupAuthorization,
+                "X-Group-Authorization" : await getGroupAuthorization(),
                 "accept": "application/json",
                 "Content-Type": "application/json",
             },
@@ -38,7 +43,7 @@ export async function apiLogin(email: string, password: string): Promise<Request
         return {code: 200, ok: true, json: await resp.json()}
     } catch (error) {
         const detail = {
-            url,
+            url: urlLogin,
             method: "post",
         }
         console.error(error)
@@ -51,7 +56,7 @@ async function myFetch(endpoint: string, token: Token, output: 'blob' | 'json' |
         const resp = await fetch(endpoint, {
             method,
             headers: {
-                "X-Group-Authorization" : "qkRWGKs55LnaJUowf7VbzUUR4skcllAF",
+                "X-Group-Authorization" : await getGroupAuthorization(),
                 "accept": "application/json",
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + token,
@@ -83,7 +88,7 @@ async function myFetch(endpoint: string, token: Token, output: 'blob' | 'json' |
 }
 
 export async function apiImage(id: number, token: Token): Promise<RequestReturn<{}>> {
-    const urlImage = `${url}/employees/${id}/image`;
+    const urlImage = `${await getUrlApi()}/employees/${id}/image`;
 
     try {
         const resp = await myFetch(urlImage, token, 'blob')
@@ -113,7 +118,7 @@ export type EmployeeSmall = {
 };
 
 export async function apiMe(token: Token): Promise<RequestReturn<EmployeeFull>> {
-    const urlMe = `${url}/employees/me`;
+    const urlMe = `${await getUrlApi()}/employees/me`;
 
     try {
         const resp = await myFetch(urlMe, token, 'json')
@@ -125,7 +130,7 @@ export async function apiMe(token: Token): Promise<RequestReturn<EmployeeFull>> 
 }
 
 export async function apiEmployee(id: number, token: Token): Promise<RequestReturn<EmployeeFull>> {
-    const urlEmp = `${url}/employees/${id}`;
+    const urlEmp = `${await getUrlApi()}/employees/${id}`;
 
     try {
         const resp = await myFetch(urlEmp, token, 'json')
@@ -137,7 +142,7 @@ export async function apiEmployee(id: number, token: Token): Promise<RequestRetu
 }
 
 export async function apiEmployees(token: Token): Promise<RequestReturn<EmployeeSmall[]>> {
-    const urlEmp = `${url}/employees`;
+    const urlEmp = `${await getUrlApi()}/employees`;
 
     try {
         const resp = await myFetch(urlEmp, token, 'json')
@@ -149,7 +154,7 @@ export async function apiEmployees(token: Token): Promise<RequestReturn<Employee
 }
 
 export async function apiLeaders(token: Token): Promise<RequestReturn<EmployeeSmall[]>> {
-    const urlEmp = `${url}/employees/leaders`;
+    const urlEmp = `${await getUrlApi()}/employees/leaders`;
 
     try {
         const resp = await myFetch(urlEmp, token, 'json')
