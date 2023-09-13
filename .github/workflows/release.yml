@@ -57,7 +57,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           export DATE=$(date +"%Y%m%d.%H%M")
-          cp ./trombone/apk-release.apk ./apk-release.apk
+          cp trombone/android/app/build/outputs/apk/release/app-release.apk ./apk-release.apk
           gh release create "$DATE"           \
             --title "v$DATE"                  \
             --generate-notes                  \
