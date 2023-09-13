@@ -29,22 +29,27 @@ function UserInfoScreen({ navigation, route }: UserInfoScreenParams): JSX.Elemen
         })
     }
 
+    function formatDate() {
+        var x = new Date(employee.birth_date)
+        return `${x.getDate()}/${x.getMonth()}/${x.getFullYear()}`
+    }
+
     return (
-        <Modal visible={true} transparent={true} animationType="slide" onRequestClose={goBack}>
+        <Modal visible={true} transparent={true} animationType="slide" onRequestClose={goBack} onDismiss={goBack} >
+            <TouchableOpacity style={styles.absolute} onPress={goBack} />
             <View style={styles.wrapper}>
-                {/* <BlurView style={styles.absolute} blurType="light" blurAmount={5} blurRadius={1} /> */}
-                <TouchableOpacity style={styles.absolute} onPress={goBack} />
+                <BlurView style={styles.absolute} blurRadius={3} overlayColor="transparent" />
                 <View style={styles.innerContainer}>
-                    <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={goBack}>
+                    {/* <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={goBack}>
                         <Image source={Icons.lock} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <Image style={styles.profilePicture} source={{ uri: img }} />
                     <Text numberOfLines={3} style={styles.names}>{employee.name} {employee.surname}</Text>
+                    <Text style={styles.birthDate}>{formatDate()}</Text>
                     <Text onPress={OpenEmail} style={styles.emailText}>{employee.email}</Text>
-                    <Text style={{ fontSize: 30 }}>{employee.birth_date}</Text>
-                    <Text style={{ fontSize: 30 }}>{employee.work}</Text>
+                    <Text style={styles.job}>{employee.work}</Text>
                     {me.id != employee.id ? <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={goToChat}>
-                        <Image source={Icons.lock} />
+                        <Image source={Icons.chat} style={{width: 32, height: 32, marginBottom: 16, marginTop: 20,}} />
                     </TouchableOpacity>
                         : null
                     }
@@ -58,22 +63,41 @@ const styles = StyleSheet.create({
     absolute: {
         position: "absolute",
         top: 0,
-        left: 0,
         bottom: 0,
-        right: 0
+        left: 0,
+        right: 0,
     },
     wrapper: {
-        flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 10
+        alignItems: 'flex-end', justifyContent: 'flex-end', alignSelf: "flex-end", position: "absolute", bottom: 0, left: 0, width: "100%",
+    },
+    job: {
+        fontFamily: "ArchivoNarrow-Bold",
+        color: "white",
+        fontSize: 36
     },
     names: {
         ...Fonts.text,
+        color: "white",
+        fontFamily: "ArchivoNarrow-Bold",
         fontSize: 32,
+        marginBottom: 18,
+
     },
     emailText: {
         ...Fonts.text,
+        color: "white",
+        fontFamily: "ArchivoNarrow-Bold",
+        fontSize: 24,
+        marginBottom: 5,
+        marginTop: -10,
+    },
+    birthDate: {
+        fontFamily: "ArchivoNarrow-Bold",
+        color: "white",
+        fontSize: 36,
     },
     innerContainer: {
-        backgroundColor: "white",
+        backgroundColor: "#2D2D2D66",
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 10,
@@ -82,9 +106,9 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     profilePicture: {
-        width: "100%",
+        width: "80%",
         borderRadius: 20,
-        aspectRatio: 1,
+        aspectRatio: 0.83,
     }
 })
 
