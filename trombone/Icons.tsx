@@ -27,6 +27,8 @@ export const Images = {
     logo: require("./assets/logo.png"),
     logoCircle: require("./assets/logo_circle.png"),
     login_bg: require("./assets/login_bg.png"),
+    bg1: require("./assets/bg1.png"),
+    bg2: require("./assets/bg2.png"),
     weather: {
         c: require(`./assets/weather/${c}.png`),
         m: require(`./assets/weather/${m}.png`),

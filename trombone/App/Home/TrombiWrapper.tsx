@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import React, { } from 'react';
+import { StyleSheet } from 'react-native';
 import HomeBackground from './HomeBackground';
 import Trombinoscope from './Trombinoscope';
 
-export default function Home2({}) {
+export default function TrombiWrapper() {
 
-    return (<HomeBackground pageIndex={2}>
+    return (<HomeBackground pageIndex={1}>
         <Trombinoscope/>
     </HomeBackground>
     );

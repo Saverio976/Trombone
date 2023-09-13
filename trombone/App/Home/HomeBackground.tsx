@@ -12,7 +12,7 @@ function HomeBackground(props: HomeBackgroundProps) {
         <View {...props}>
             {props.children}
         </View>
-        <ImageBackground source={Images.login_bg} style={[styles.backgroundImage, {transform: [{scaleX: props.pageIndex % 2 === 0 ? 1 : -1}]}]} />
+        <ImageBackground source={props.pageIndex == 2 ?  Images.bg1 : Images.bg2} style={styles.backgroundImage} />
     </View>)
 }
 
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
         zIndex: -1,
-        opacity: 0.4,
+        opacity: 1,
     },
 })
 

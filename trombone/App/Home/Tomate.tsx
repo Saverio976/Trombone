@@ -50,10 +50,11 @@ export default function Tomate(): JSX.Element {
 const styles = StyleSheet.create({
     widget: {
         backgroundColor: Colors.secondary,
-        borderRadius: 50,
+        flex: 1,
+        justifyContent: "center",
+        alignContent: "center",
     },
     title: {
-        marginTop: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -63,8 +64,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     bottom: {
-        marginBottom: 10,
-        marginLeft: 10,
         justifyContent: 'center',
         alignItems: 'center',
     },
