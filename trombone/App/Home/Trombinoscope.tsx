@@ -16,7 +16,7 @@ function Separator() {
 const employeeIncrement = 12
 type SuperEmployee = EmployeeFull & { image: string }
 
-const itemWidth = ((Dimensions.get("window").width - 50) / 3) * (3/4);
+const itemWidth = ((Dimensions.get("window").width - 50) / 3) * (3 / 4);
 function Trombinoscope(): JSX.Element {
     const state = store.getState();
     const [employeesList, setEmployeesList] = useState<EmployeeSmall[]>([]);
@@ -31,11 +31,12 @@ function Trombinoscope(): JSX.Element {
             nav.navigate("UserInfo", { employee: data.item, img: data.item.image })
         }
 
-        return <TouchableOpacity style={styles.item} onPress={onPress}>
-            <Image source={{ uri: data.item.image }} style={styles.image} />
-            <Text style={styles.itemText} numberOfLines={1}>{data.item.name}</Text>
-            <Text style={styles.itemText} numberOfLines={1}>{data.item.surname}</Text>
-        </TouchableOpacity>
+        return <View style={styles.item}>
+            <TouchableOpacity style={{ backgroundColor: "#7FB3AA", width: "75%", borderRadius: 20, alignItems: "center", elevation: 6 }} onPress={onPress}>
+                <Image source={{ uri: data.item.image }} style={styles.image} />
+                <Text style={styles.itemText} numberOfLines={2}>{data.item.name} {data.item.surname}</Text>
+            </TouchableOpacity>
+        </View>
     }, [nav])
 
     function AddToEmployees() {
@@ -96,7 +97,7 @@ function Trombinoscope(): JSX.Element {
     }
 
     return (<View style={styles.background}>
-        <View style={styles.searchWrapper}>
+        {/* <View style={styles.searchWrapper}>
             <View style={styles.searchBox}>
                 <Image source={Icons.search} style={styles.searchIcon} />
                 <TextInput placeholderTextColor="#00000066" style={{ padding: 0 }} placeholder="Rechercher..." />
@@ -107,12 +108,11 @@ function Trombinoscope(): JSX.Element {
                     <Text style={styles.filterText}>Trier par</Text>
                 </>
             </TouchableOpacity>
-
-        </View>
+        </View> */}
         <FlatList
             data={employees}
             renderItem={renderItem}
-            numColumns={3}
+            numColumns={2}
             contentContainerStyle={styles.flatListContainer}
             columnWrapperStyle={styles.columnWrapper}
             ItemSeparatorComponent={Separator}
@@ -121,44 +121,44 @@ function Trombinoscope(): JSX.Element {
             ListFooterComponent={Footer}
             onEndReached={AddToEmployees}
             onEndReachedThreshold={6}
-            extraData={nav}
         />
     </View>)
 }
 
 const styles = StyleSheet.create({
     background: {
-        backgroundColor: Colors.secondary,
-        borderRadius: 10,
-        elevation: 10,
-        height: 500,
+        width: "100%",
     },
     columnWrapper: {
-        justifyContent: "space-between"
+        justifyContent: "space-between",
     },
     flatListContainer: {
-        paddingHorizontal: 20,
     },
     flatList: {
-        height: 250,
-        marginVertical: 20,
+        paddingVertical: 20,
     },
     image: {
-        width: itemWidth,
-        height: itemWidth,
-        backgroundColor: "coral",
-        borderRadius: 12,
+        aspectRatio: 1,
+        width: "100%",
+        backgroundColor: "lightcyan",
+        borderRadius: 20,
     },
     item: {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        maxWidth: itemWidth
+        flex: 1/2,
     },
     itemText: {
-        width: itemWidth,
+        width: "100%",
+        paddingHorizontal: 10,
+        fontFamily: "ArchivoNarrow-Bold",
         textAlign: "center",
-        color: Colors.text,
+        fontSize: 15,
+        color: "#2D2D2D",
+        height: 52,
+        justifyContent: "center",
+        textAlignVertical: "center"
     },
     searchWrapper: {
         height: 25,
