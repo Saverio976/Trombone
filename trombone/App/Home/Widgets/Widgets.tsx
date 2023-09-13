@@ -1,8 +1,10 @@
 import WeatherWidget from "@app/App/Weather"
 import Colors from "@app/Colors"
 import { StyleSheet, View, Text, FlatList } from "react-native"
+import Tomate from "../Tomate"
+import Notes from "../Note"
 
-function renderItem({item}: { item: WidgetItem }): JSX.Element {
+function renderItem({ item }: { item: WidgetItem }): JSX.Element {
     if (item.size == "medium") {
         return <View style={styles.oneBlock}>
             {item.elements[0]}
@@ -15,14 +17,14 @@ function renderItem({item}: { item: WidgetItem }): JSX.Element {
             </View>
             <View style={{ width: margin }} />
             <View style={styles.litleBlock}>
-                {item.elements[1]}
+                {item.elements.length == 2 ? item.elements[1] : <></>}
             </View>
         </View>
     }
     if (item.size == "large") {
         return <View style={styles.oneBigBlock}>
-        {item.elements[0]}
-    </View>
+            {item.elements[0]}
+        </View>
     }
     return <></>
 }
@@ -50,7 +52,8 @@ const ySizeBlock = 160
 
 const blockStyles = StyleSheet.create({
     block: {
-        backgroundColor: Colors.secondary,
+        borderWidth: 1,
+        borderColor: "black",
         borderRadius: 25,
         height: ySizeBlock,
         overflow: "hidden",
@@ -78,6 +81,14 @@ const styles = StyleSheet.create({
     },
 })
 
+const widgetTable: { [name: string]: { size: WidgetSize, element: () => JSX.Element } } = {
+    "Weather": {size: "small", element: WeatherWidget},
+    "Tomato": {size: "medium", element: Tomate},
+    "Todos": {size: "large", element: Notes}
+}
+
+// const widgetConfig =
+
 type WidgetSize = "small" | "medium" | "large"
 
 type WidgetItem = {
@@ -86,8 +97,10 @@ type WidgetItem = {
 }
 
 const allWidgets: WidgetItem[] = [
-    {size: "large",  elements: [<Text>First block</Text>]},
-    {size: "small",  elements: [<Text>Second block</Text>, <WeatherWidget/>]},
-    {size: "medium", elements: [<Text>Fourth block</Text>]},
-    {size: "medium", elements: [<Text>Fifth block</Text>]},
+    { size: "large", elements: [<Text>First block</Text>] },
+    { size: "small", elements: [<Text>Second block</Text>, <WeatherWidget />] },
+    { size: "medium", elements: [<Text>Fourth block</Text>] },
+    { size: "small", elements: [<WeatherWidget />] },
+    { size: "medium", elements: [<Text>Fifth block</Text>] },
 ]
+
