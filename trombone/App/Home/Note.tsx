@@ -101,7 +101,7 @@ export default function Notes() {
     }
 
     return (
-        <View style={{ ...styles.widget, marginTop: 20 }}>
+        <View style={{ ...styles.widget, paddingTop: 10, }}>
             <Button onPress={() => a_deleteAllNotes()} style={{ ...styles.button, margin: 5, alignItems: 'center' }}>
                 <Text style={Fonts.text}>Supprimer toutes les notes</Text>
             </Button>
@@ -125,10 +125,9 @@ export default function Notes() {
 const styles = StyleSheet.create({
     widget: {
         backgroundColor: Colors.secondary,
-        borderRadius: 50,
+        flex: 1,
     },
     title: {
-        marginTop: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -140,8 +139,6 @@ const styles = StyleSheet.create({
         borderColor: "black",
     },
     botom: {
-        marginBottom: 10,
-        marginLeft: 10,
         justifyContent: 'center',
         alignItems: 'center',
     },

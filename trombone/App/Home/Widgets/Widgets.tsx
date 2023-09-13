@@ -3,6 +3,7 @@ import Colors from "@app/Colors"
 import { StyleSheet, View, Text, FlatList } from "react-native"
 import Tomate from "../Tomate"
 import Notes from "../Note"
+import StockMarket from "@app/App/StockMarket"
 
 function renderItem({ item }: { item: WidgetItem }): JSX.Element {
     if (item.size == "medium") {
@@ -41,7 +42,8 @@ export const Widgets = (): JSX.Element => {
             numColumns={1}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-            style={{ paddingHorizontal: 20, paddingVertical: 10, }}
+            style={{ paddingHorizontal: 20, }}
+            contentContainerStyle={{paddingVertical: 20,}}
             ItemSeparatorComponent={Separator}
         />
     )
@@ -82,9 +84,9 @@ const styles = StyleSheet.create({
 })
 
 const widgetTable: { [name: string]: { size: WidgetSize, element: () => JSX.Element } } = {
-    "Weather": {size: "small", element: WeatherWidget},
-    "Tomato": {size: "medium", element: Tomate},
-    "Todos": {size: "large", element: Notes}
+    "Weather": { size: "small", element: WeatherWidget },
+    "Tomato": { size: "medium", element: Tomate },
+    "Todos": { size: "large", element: Notes }
 }
 
 // const widgetConfig =
@@ -97,10 +99,10 @@ type WidgetItem = {
 }
 
 const allWidgets: WidgetItem[] = [
-    { size: "large", elements: [<Text>First block</Text>] },
+    { size: "medium", elements: [<StockMarket />] },
     { size: "small", elements: [<Text>Second block</Text>, <WeatherWidget />] },
-    { size: "medium", elements: [<Text>Fourth block</Text>] },
+    { size: "medium", elements: [<Tomate />] },
     { size: "small", elements: [<WeatherWidget />] },
-    { size: "medium", elements: [<Text>Fifth block</Text>] },
+    { size: "large", elements: [<Notes />] },
 ]
 
