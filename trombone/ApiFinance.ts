@@ -19,7 +19,7 @@ export interface ItemSummary {
 
 interface Results {
     spark: {
-        timestamp: string[];
+        timestamp: number[];
         close: number[]
     };
     shortName: string;
