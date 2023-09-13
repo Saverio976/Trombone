@@ -42,11 +42,13 @@ export default function Notes() {
             a_deleteNote(data.item.id)
         }
 
-        const renderLeftActions = (progress, dragX) => {
+        const renderLeftActions = (progress: any, dragX: number) => {
+            //@ts-expect-error
             const trans = dragX.interpolate({
                 inputRange: [0, 1],
                 outputRange: [-51, -50],
             });
+            //@ts-expect-error
             const scale = dragX.interpolate({
                 inputRange: [0, 40, 100],
                 outputRange: [0, 1, 1]
@@ -59,12 +61,13 @@ export default function Notes() {
                         },
                     ]}>
                     <TouchableOpacity onPress={onSwipe} style={{ backgroundColor: "red", aspectRatio: 1, height: "100%" }}>
-                        <Image source={Icons.arrowLeft} style={{ resizeMode: "center", aspectRatio: 1, height: "100%" }} />
+                        <Image source={Icons.chatArrow} style={{ resizeMode: "center", aspectRatio: 1, height: "100%" }} />
                     </TouchableOpacity>
                 </Animated.View>
             );
         };
         return (
+            //@ts-expect-error
             <Swipeable renderLeftActions={renderLeftActions}>
                 <View style={styles.middle}>
                     <Text style={Fonts.H3}>{data.item.date}</Text>

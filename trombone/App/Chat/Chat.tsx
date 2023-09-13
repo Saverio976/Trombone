@@ -6,7 +6,6 @@ import { Bubble, GiftedChat, IMessage, Time } from 'react-native-gifted-chat';
 import Icons, { Images } from '@app/Icons';
 import { ChatScreenParams } from '@app/App';
 import { db } from '@app/firebase';
-import { BackgroundImage } from 'react-native-elements/dist/config';
 import Fonts from '@app/Fonts';
 
 
