@@ -63,8 +63,10 @@ type RootStackParamList = {
   Home: undefined,
   Login: undefined
   UserInfo: {
+    me: EmployeeFull,
     employee: EmployeeFull,
     img: string,
+    meImg: string
   }
   Chat: {
     partner: {

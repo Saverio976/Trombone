@@ -152,9 +152,10 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "skyblue",
         borderRadius: 10,
-        width: "60%",
         alignSelf: "center",
         overflow: "hidden",
+        flex: 1,
+        width: "100%",
     },
     tempContainer: {
         alignItems: "center",

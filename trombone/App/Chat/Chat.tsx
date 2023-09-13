@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import { Avatar, Image } from 'react-native-elements';
 import { collection, addDoc, query, orderBy, onSnapshot, where, or, and } from 'firebase/firestore';
-import { Bubble, GiftedChat, IMessage, Time } from 'react-native-gifted-chat';
+import { Bubble, GiftedChat, IMessage, Time, InputToolbar } from 'react-native-gifted-chat';
 import Icons, { Images } from '@app/Icons';
 import { ChatScreenParams } from '@app/App';
 import { db } from '@app/firebase';
@@ -68,11 +68,11 @@ const Chat = ({ navigation, route }: ChatScreenParams) => {
                     <Image source={Icons.chatArrow} style={styles.goBack} />
                 </TouchableOpacity>
             </View>
-            <View style={{ flex: 1, paddingRight: 10 }}>
+            <View style={{ flex: 1 }}>
                 <Text style={styles.headerName}>{route.params.partner.fullname}</Text>
             </View>
-            <View
-                style={{ flex: 1, paddingRight: 10 }}>
+            <View style={{ flex: 1 }}>
+                <View style={styles.goBack} />
             </View>
         </View>
     }
@@ -81,9 +81,12 @@ const Chat = ({ navigation, route }: ChatScreenParams) => {
         <View style={{ flex: 1 }}>
             <Header />
             <GiftedChat
+                alwaysShowSend={true}
                 messages={messages}
                 showAvatarForEveryMessage={true}
                 showUserAvatar={true}
+                placeholder='Entrez un message...'
+                minInputToolbarHeight={70}
                 onSend={messages => onSend(messages)}
                 user={{
                     _id: route.params.employee.id,

@@ -7,6 +7,7 @@ const Icons = {
     sort: require("./assets/icons/sort.png"),
     tomato: require("./assets/icons/tomate21-2415639179.png"),
     chatArrow: require("./assets/icons/chat-arrow-left.png"),
+    chat: require("./assets/icons/chat.png"),
 }
 
 const c = "clear_sky"
