@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import { Avatar, Image } from 'react-native-elements';
 import { collection, addDoc, query, orderBy, onSnapshot, where, or, and } from 'firebase/firestore';
 import { Bubble, GiftedChat, IMessage, Time, InputToolbar } from 'react-native-gifted-chat';
@@ -71,8 +71,8 @@ const Chat = ({ navigation, route }: ChatScreenParams) => {
             <View style={{ flex: 1 }}>
                 <Text style={styles.headerName}>{route.params.partner.fullname}</Text>
             </View>
-            <View style={{flex: 1}}>
-                <View style={styles.goBack}/>
+            <View style={{ flex: 1 }}>
+                <View style={styles.goBack} />
             </View>
         </View>
     }
@@ -86,9 +86,6 @@ const Chat = ({ navigation, route }: ChatScreenParams) => {
                 showAvatarForEveryMessage={true}
                 showUserAvatar={true}
                 placeholder='Entrez un message...'
-                timeTextStyle={{backgroundColor: "red",}}
-                renderInputToolbar={(props) =>
-                    <InputToolbar {...props} />}
                 minInputToolbarHeight={70}
                 onSend={messages => onSend(messages)}
                 user={{
