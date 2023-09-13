@@ -1,0 +1,65 @@
+name: Auto Release (Build Android)
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps: 
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
+
+      - name: install android sdk
+        run: sudo apt-get update && sudo apt-get install -y android-sdk
+
+      - name: Install dependencies
+        run: |
+          sudo npm install -g yarn
+          yarn
+        working-directory: trombone
+
+      - name: Check typescript
+        run: yarn tsc
+        working-directory: trombone
+
+      - name: Build Android Release
+        if: github.repository != 'EpitechPromo2026/B-SVR-500-TLS-5-1-survivornext-adelaide.chanteux'
+        run: |
+          export XGROUPAUTHORIZATION=${{ secrets.XGROUPAUTHORIZATION }}
+          export API_URL=${{ secrets.API_URL }}
+          export XRAPIDAPIKEY_YAHOOFINANCE_KEY=${{ secrets.XRAPIDAPIKEY_YAHOOFINANCE_KEY }}
+          export XRAPIDAPIKEY_YAHOOFINANCE_HOST=${{ secrets.XRAPIDAPIKEY_YAHOOFINANCE_HOST }}
+          export XRAPIDAPIKEY_YAHOOFINANCE_URL=${{ secrets.XRAPIDAPIKEY_YAHOOFINANCE_URL }}
+          ./get_apk.bash
+        working-directory: trombone
+
+      - name: Upload Artifact
+        if: github.repository != 'EpitechPromo2026/B-SVR-500-TLS-5-1-survivor-matthieu.fraiz'
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-release.apk
+          path: trombone/android/app/build/outputs/apk/release/
+
+      - name: Create Release
+        if: github.repository != 'EpitechPromo2026/B-SVR-500-TLS-5-1-survivor-matthieu.fraiz'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          export DATE=$(date +"%Y%m%d.%H%M")
+          cp ./trombone/apk-release.apk ./apk-release.apk
+          gh release create "$DATE"           \
+            --title "v$DATE"                  \
+            --generate-notes                  \
+            --target main                     \
+            './app-release.apk#Latest APK Build'
