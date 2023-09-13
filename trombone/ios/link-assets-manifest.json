@@ -2,12 +2,16 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "assets/fonts/Koulen-Regular.ttf",
-      "sha1": "f7e8dded278ed9b0c78fb3680ec4cb64f32f04f5"
+      "path": "assets/fonts/ArchivoNarrow-Italic-VariableFont_wght.ttf",
+      "sha1": "cb5e08332805102c145474c1e07dfd6e6741c612"
     },
     {
-      "path": "assets/fonts/README.txt",
-      "sha1": "bcd56dbeb00705485a25392810d2a17ed0cf0e22"
+      "path": "assets/fonts/ArchivoNarrow-VariableFont_wght.ttf",
+      "sha1": "cfd1ecbcab36562707263951620f2a4348fcc5c8"
+    },
+    {
+      "path": "assets/fonts/Koulen-Regular.ttf",
+      "sha1": "f7e8dded278ed9b0c78fb3680ec4cb64f32f04f5"
     },
     {
       "path": "assets/fonts/Rubik-Italic-VariableFont_wght.ttf",
@@ -16,6 +20,38 @@
     {
       "path": "assets/fonts/Rubik-VariableFont_wght.ttf",
       "sha1": "80fbecd6d6cb21096b3e0277222e696c77ceb7eb"
+    },
+    {
+      "path": "assets/fonts/static/ArchivoNarrow-Bold.ttf",
+      "sha1": "e9ed564b21e76967cc2705b579def38b2515f790"
+    },
+    {
+      "path": "assets/fonts/static/ArchivoNarrow-BoldItalic.ttf",
+      "sha1": "82cc1e852fb06237d5aeb498584ffbe50bc9086b"
+    },
+    {
+      "path": "assets/fonts/static/ArchivoNarrow-Italic.ttf",
+      "sha1": "a325f707954bc6bcc3901f3420964f2dae97cfea"
+    },
+    {
+      "path": "assets/fonts/static/ArchivoNarrow-Medium.ttf",
+      "sha1": "e904f8c62d7511d3cfe133ccf731877d933cadc3"
+    },
+    {
+      "path": "assets/fonts/static/ArchivoNarrow-MediumItalic.ttf",
+      "sha1": "27dce4e05b1ca89e973a8b640eef005bd42ab07a"
+    },
+    {
+      "path": "assets/fonts/static/ArchivoNarrow-Regular.ttf",
+      "sha1": "5938d462dc34a82be52de2de5439e0fe2ab0885a"
+    },
+    {
+      "path": "assets/fonts/static/ArchivoNarrow-SemiBold.ttf",
+      "sha1": "4b7d5edff5a6d85b97598f7940b8db127bfbde41"
+    },
+    {
+      "path": "assets/fonts/static/ArchivoNarrow-SemiBoldItalic.ttf",
+      "sha1": "c844acacaa096f524cc5f9537797d8d33208b08a"
     },
     {
       "path": "assets/fonts/static/Rubik-Black.ttf",

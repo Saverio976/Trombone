@@ -70,6 +70,16 @@
 		<string>Rubik-SemiBold.ttf</string>
 		<string>Rubik-SemiBoldItalic.ttf</string>
 		<string>Koulen-Regular.ttf</string>
+		<string>ArchivoNarrow-Italic-VariableFont_wght.ttf</string>
+		<string>ArchivoNarrow-VariableFont_wght.ttf</string>
+		<string>ArchivoNarrow-Bold.ttf</string>
+		<string>ArchivoNarrow-BoldItalic.ttf</string>
+		<string>ArchivoNarrow-Italic.ttf</string>
+		<string>ArchivoNarrow-Medium.ttf</string>
+		<string>ArchivoNarrow-MediumItalic.ttf</string>
+		<string>ArchivoNarrow-Regular.ttf</string>
+		<string>ArchivoNarrow-SemiBold.ttf</string>
+		<string>ArchivoNarrow-SemiBoldItalic.ttf</string>
 	</array>
 </dict>
 </plist>

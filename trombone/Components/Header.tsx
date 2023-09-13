@@ -65,12 +65,22 @@ export function Header() {
         })
     }, [])
     function onOptions() {
-        store.dispatch({ type: "logout" });
+        // store.dispatch({ type: "logout" });
         // navigation.reset("Login")
-        nav.navigate("Login");
+        const n1 = { employee: me, img: image, partner: { id: 4, fullname: "David Johnson" } }
+        nav.navigate("Chat", n1);
+    }
+    function onOptions2() {
+        const n2 = {
+            employee: {
+                id: 4,
+                name: "David",
+            }, img: require("@app/assets/David.png"), partner: { id: 74, fullname: "Oliver Lewis" }
+        }
+        nav.navigate("Chat", n2);
     }
     function onPressMyImage() {
-        nav.navigate("UserInfo", { employee: me, img: image})
+        nav.navigate("UserInfo", { employee: me, img: image })
     }
 
     function meImage() {
@@ -81,10 +91,13 @@ export function Header() {
 
     return (
         <View style={styles.container}>
-            {image === "" ? <ActivityIndicator style={styles.image} /> : meImage() }
+            {image === "" ? <ActivityIndicator style={styles.image} /> : meImage()}
             <Text style={styles.name}>{displayFullName()}</Text>
             <TouchableOpacity onPress={onOptions}>
                 <Image style={styles.cogwheel} source={Icons.cogwheel} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onOptions2}>
+                <Image style={[styles.cogwheel, { tintColor: "black" }]} source={Icons.cogwheel} />
             </TouchableOpacity>
         </View>
     );

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "160274602744",
+    "project_id": "trombone-chat",
+    "storage_bucket": "trombone-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160274602744:android:24143e752db81dd718b90d",
+        "android_client_info": {
+          "package_name": "com.trombone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiddxkaepd6APObKyI6llAIo6fmyr0C7U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
