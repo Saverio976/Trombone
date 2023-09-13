@@ -80,7 +80,7 @@ export function Header() {
         nav.navigate("Chat", n2);
     }
     function onPressMyImage() {
-        nav.navigate("UserInfo", { employee: me, img: image })
+        nav.navigate("UserInfo", { employee: me, img: image, meImage: image, me })
     }
 
     function meImage() {

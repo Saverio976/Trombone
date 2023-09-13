@@ -7,7 +7,7 @@ import { Button, Image, Text, View, Linking, TouchableOpacity, StyleSheet, Modal
 
 
 function UserInfoScreen({ navigation, route }: UserInfoScreenParams): JSX.Element {
-    const { employee, img } = route.params
+    const { employee, img, me, meImg } = route.params
 
     function OpenEmail() {
         Linking.canOpenURL("mailto:" + employee.email).then(() => {
@@ -20,11 +20,20 @@ function UserInfoScreen({ navigation, route }: UserInfoScreenParams): JSX.Elemen
         navigation.goBack()
     }
 
+    function goToChat() {
+        navigation.goBack()
+        navigation.navigate("Chat", {
+            partner: { id: employee.id, fullname: `${employee.name} ${employee.surname}` },
+            employee: me,
+            img: meImg,
+        })
+    }
+
     return (
-        <Modal visible={true} transparent={true} animationType="fade" onRequestClose={goBack}>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 10 }}>
-                <BlurView style={styles.absolute} blurType="light" blurAmount={5} blurRadius={1} />
-                <TouchableOpacity style={styles.absolute} onPress={goBack}/>
+        <Modal visible={true} transparent={true} animationType="slide" onRequestClose={goBack}>
+            <View style={styles.wrapper}>
+                {/* <BlurView style={styles.absolute} blurType="light" blurAmount={5} blurRadius={1} /> */}
+                <TouchableOpacity style={styles.absolute} onPress={goBack} />
                 <View style={styles.innerContainer}>
                     <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={goBack}>
                         <Image source={Icons.lock} />
@@ -34,6 +43,11 @@ function UserInfoScreen({ navigation, route }: UserInfoScreenParams): JSX.Elemen
                     <Text onPress={OpenEmail} style={styles.emailText}>{employee.email}</Text>
                     <Text style={{ fontSize: 30 }}>{employee.birth_date}</Text>
                     <Text style={{ fontSize: 30 }}>{employee.work}</Text>
+                    {me.id != employee.id ? <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={goToChat}>
+                        <Image source={Icons.lock} />
+                    </TouchableOpacity>
+                        : null
+                    }
                 </View>
             </View>
         </Modal>
@@ -47,6 +61,9 @@ const styles = StyleSheet.create({
         left: 0,
         bottom: 0,
         right: 0
+    },
+    wrapper: {
+        flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 10
     },
     names: {
         ...Fonts.text,
@@ -65,7 +82,8 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     profilePicture: {
-        width: "50%",
+        width: "100%",
+        borderRadius: 20,
         aspectRatio: 1,
     }
 })
