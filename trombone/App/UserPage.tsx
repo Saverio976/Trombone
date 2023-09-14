@@ -36,7 +36,7 @@ function UserInfoScreen({ navigation, route }: UserInfoScreenParams): JSX.Elemen
 
     return (
         <Modal visible={true} transparent={true} animationType="slide" onRequestClose={goBack} onDismiss={goBack} >
-            <TouchableOpacity style={styles.absolute} onPress={goBack} />
+            <TouchableWithoutFeedback style={styles.absolute} onPress={goBack}><View style={styles.absolute}/></TouchableWithoutFeedback>
             <View style={styles.wrapper}>
                 <BlurView style={styles.absolute} blurRadius={3} overlayColor="transparent" />
                 <View style={styles.innerContainer}>
@@ -49,7 +49,7 @@ function UserInfoScreen({ navigation, route }: UserInfoScreenParams): JSX.Elemen
                     <Text onPress={OpenEmail} style={styles.emailText}>{employee.email}</Text>
                     <Text style={styles.job}>{employee.work}</Text>
                     {me.id != employee.id ? <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={goToChat}>
-                        <Image source={Icons.chat} style={{width: 32, height: 32, marginBottom: 16, marginTop: 20,}} />
+                        <Image source={Icons.chat} style={{ width: 32, height: 32, marginBottom: 16, marginTop: 20, }} />
                     </TouchableOpacity>
                         : null
                     }

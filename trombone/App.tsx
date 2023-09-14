@@ -14,10 +14,8 @@ import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navig
 
 import LoginPage from './App/Login';
 import { store } from './App/Reducer';
-import Home1 from './App/Home/Home1';
-import Home2 from './App/Home/Home2';
-import Home3 from './App/Home/Home3';
-import Home4 from './App/Home/Home4';
+import Home2 from './App/Home/TrombiWrapper';
+import Home4 from './App/Home/WidgetWrapper';
 import { Header as NavHeader } from './Components/Header';
 import { MyTabBar as NavFooter } from './Components/Footer';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -26,19 +24,8 @@ import { EmployeeFull } from './Api';
 import Toast from 'react-native-toast-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import Chat from './App/Chat/Chat';
-
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-
-type TabStackParamList = {
-  Home1: undefined,
-  Home2: undefined,
-  Home3: undefined,
-  Home4: undefined,
-}
+import TrombiWrapper from './App/Home/TrombiWrapper';
+import WidgetWrapper from './App/Home/WidgetWrapper';
 
 export type ChatScreenParams = NativeStackScreenProps<RootStackParamList, "Chat">
 
@@ -52,8 +39,8 @@ function Home(): JSX.Element {
         tabBarPosition='bottom'
         tabBar={props => <NavFooter {...props} />}
       >
-        <Tab.Screen name="Trombi" component={Home2} />
-        <Tab.Screen name="Widget" component={Home4} />
+        <Tab.Screen name="Trombi" component={TrombiWrapper} />
+        <Tab.Screen name="Widget" component={WidgetWrapper} />
       </Tab.Navigator>
     </>
   );
