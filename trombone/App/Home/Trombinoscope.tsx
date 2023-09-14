@@ -14,7 +14,6 @@ function Separator() {
     return <View style={{ height: 30 }} />
 }
 
-const employeeIncrement = 4
 type SuperEmployee = EmployeeFull & { image: string }
 
 const itemWidth = ((Dimensions.get("window").width - 50) / 3) * (3 / 4);
@@ -28,6 +27,20 @@ function Trombinoscope(): JSX.Element {
     const nav = useNavigation();
 
     useEffect(() => {
+        if (state.value === true) {
+            var superEmployee: SuperEmployee = {
+                name: "admin", surname: "account",
+                id: -1,
+                email: "admin@admin.com",
+                birth_date: "today",
+                gender: "None",
+                work: "Admin",
+                subordinates: [],
+                image: "https://thispersondoesnotexist.com/"
+            }
+            setMe(superEmployee)
+            return
+        }
         apiMe(state.value).then(response1 => {
             if (response1.code !== 200 || response1.json === undefined) {
                 Toast.show({
@@ -73,15 +86,50 @@ function Trombinoscope(): JSX.Element {
         </View>
     }, [nav, me])
 
-    function AddToEmployees() {
-        for (var i = 0; i < employeeIncrement; i++) {
-            var j = i + index;
-            if (j >= employeesList.length) {
-                break;
-            }
+    async function AddToEmployees() {
 
-            var currentEmployee = employeesList[j];
+        const v = [index, index + 1, index + 2, index + 3, index + 4, index + 5, index + 6, index + 7]
+        if (loading >= 1 || employeesList.length === 0) {
+            return;
+        }
+        if (state.value === true) {
+            v.forEach(async i => {
+                if (i >= employeesList.length) {
+                    return;
+                }
+                setLoading(loading => loading + 1)
+                var currentEmployee = employeesList[i];
+
+
+                var newDate = new Date()
+                var employeeFull: EmployeeFull = { ...currentEmployee, birth_date: String(newDate), gender: "None", work: "Is not a real person", subordinates: [] }
+                await (fetch("https://thispersondoesnotexist.com/").then(async response1 => {
+                    const blob = await response1.blob();
+                    if (response1.status !== 200 || response1.blob === undefined) {
+                        return;
+                    }
+                    const fileReaderInstance = new FileReader();
+                    fileReaderInstance.readAsDataURL(blob);
+                    fileReaderInstance.onload = () => {
+                        var base64data = fileReaderInstance.result;
+                        var img = "data:image/png;" + base64data
+                        //@ts-ignore
+                        var superEmployee: SuperEmployee = { ...employeeFull, image: img }
+                        setEmployees(employees => [...employees, superEmployee])
+                        setLoading(loading => loading - 1)
+                        setIndex(index => index + 1)
+                    }
+                }));
+            })
+            return
+        }
+        v.forEach(async (i) => {
+            if (i >= employeesList.length) {
+                return;
+            }
             setLoading(loading => loading + 1)
+
+            var currentEmployee = employeesList[i];
             apiEmployee(currentEmployee.id, state.value).then((response1) => {
                 var employeeFull = response1.json
                 if (employeeFull === undefined) {
@@ -100,24 +148,64 @@ function Trombinoscope(): JSX.Element {
                         var superEmployee: SuperEmployee = { ...employeeFull, image: img }
                         setEmployees(employees => [...employees, superEmployee])
                         setLoading(loading => loading - 1)
+                        setIndex(index => index + 1)
                     }
                 })
             })
-        }
-        setIndex(index + i)
+        })
     }
 
     useEffect(() => {
         if (state.value === true) {
-
+            setEmployeesList([
+                { id: 1, name: "Tracey", surname: "Tucker", email: "tracey.tucker@fake.com" },
+                { id: 2, name: "Neil", surname: "Ball", email: "neil.ball@fake.com" },
+                { id: 3, name: "Olivia", surname: "Kerr", email: "olivia.kerr@fake.com" },
+                { id: 4, name: "Stephen", surname: "Buckland", email: "stephen.buckland@fake.com" },
+                { id: 5, name: "Luke", surname: "Mackenzie", email: "luke.mackenzie@fake.com" },
+                { id: 6, name: "Katherine", surname: "Buckland", email: "katherine.buckland@fake.com" },
+                { id: 7, name: "Jane", surname: "Bailey", email: "jane.bailey@fake.com" },
+                { id: 8, name: "Cameron", surname: "Bower", email: "cameron.bower@fake.com" },
+                { id: 9, name: "Pippa", surname: "Pullman", email: "pippa.pullman@fake.com" },
+                { id: 10, name: "Jan", surname: "Gill", email: "jan.gill@fake.com" },
+                { id: 11, name: "Kimberly", surname: "Lewis", email: "kimberly.lewis@fake.com" },
+                { id: 12, name: "Liam", surname: "Hemmings", email: "liam.hemmings@fake.com" },
+                { id: 13, name: "Heather", surname: "Pullman", email: "heather.pullman@fake.com" },
+                { id: 14, name: "Carol", surname: "King", email: "carol.king@fake.com" },
+                { id: 15, name: "Stephanie", surname: "Thomson", email: "stephanie.thomson@fake.com" },
+                { id: 16, name: "Victor", surname: "Morgan", email: "victor.morgan@fake.com" },
+                { id: 17, name: "Una", surname: "Wilson", email: "una.wilson@fake.com" },
+                { id: 18, name: "Paul", surname: "Rees", email: "paul.rees@fake.com" },
+                { id: 19, name: "James", surname: "Wright", email: "james.wright@fake.com" },
+                { id: 20, name: "Sophie", surname: "Ogden", email: "sophie.ogden@fake.com" },
+                { id: 21, name: "Jennifer", surname: "Nolan", email: "jennifer.nolan@fake.com" },
+                { id: 22, name: "Julia", surname: "Fraser", email: "julia.fraser@fake.com" },
+                { id: 23, name: "Virginia", surname: "Morgan", email: "virginia.morgan@fake.com" },
+                { id: 24, name: "Warren", surname: "McDonald", email: "warren.mcdonald@fake.com" },
+                { id: 25, name: "Angela", surname: "Forsyth", email: "angela.forsyth@fake.com" },
+                { id: 26, name: "Joseph", surname: "Powell", email: "joseph.powell@fake.com" },
+                { id: 27, name: "Cameron", surname: "Mathis", email: "cameron.mathis@fake.com" },
+                { id: 28, name: "Robert", surname: "Chapman", email: "robert.chapman@fake.com" },
+                { id: 29, name: "Tim", surname: "Parsons", email: "tim.parsons@fake.com" },
+                { id: 30, name: "Gordon", surname: "Ross", email: "gordon.ross@fake.com" },
+                { id: 31, name: "Warren", surname: "McLean", email: "warren.mclean@fake.com" },
+                { id: 32, name: "Donna", surname: "Rees", email: "donna.rees@fake.com" },
+                { id: 33, name: "Olivia", surname: "Edmunds", email: "olivia.edmunds@fake.com" },
+                { id: 34, name: "Stewart", surname: "Glover", email: "stewart.glover@fake.com" },
+                { id: 35, name: "James", surname: "Poole", email: "james.poole@fake.com" },
+                { id: 36, name: "Sam", surname: "Dowd", email: "sam.dowd@fake.com" },
+                { id: 37, name: "Joanne", surname: "Campbell", email: "joanne.campbell@fake.com" },
+                { id: 38, name: "Matt", surname: "Taylor", email: "matt.taylor@fake.com" },
+                { id: 39, name: "Carl", surname: "Sutherland", email: "carl.sutherland@fake.com" },
+                { id: 40, name: "Sam", surname: "Avery", email: "sam.avery@fake.com" },
+            ])
+            return
         }
-        setLoading(1);
         apiEmployees(state.value).then(employees => {
             if (employees.json !== undefined) {
                 setEmployeesList(employees.json)
             }
-        }).finally(() => setLoading(0));
-        AddToEmployees();
+        })
     }, []);
 
     useEffect(() => {
@@ -182,7 +270,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        flex: 1/2,
+        flex: 1 / 2,
     },
     itemText: {
         width: "100%",

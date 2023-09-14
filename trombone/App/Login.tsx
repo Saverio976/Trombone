@@ -132,11 +132,11 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
                         Login
                     </Text>
                 </Button>
-                {/* <Button style={styles.loginButton} onPress={QuickAdmin}>
+                <Button style={styles.loginButton} onPress={QuickAdmin}>
                     <Text style={styles.loginButtonText}>
                         Admin
                     </Text>
-                </Button> */}
+                </Button>
             </View>
         </ImageBackground>
         <Modal visible={apiCall} dismissable={false} theme={{
@@ -152,7 +152,7 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
 const styles = StyleSheet.create({
     flex1: { flex: 1, justifyContent: "center" },
     flex2: { flex: 2, justifyContent: "center" },
-    flex3: { flex: 1, justifyContent: "flex-end" },
+    flex3: { flex: 1, justifyContent: "flex-end", },
     imageBg: {height: "100%",},
     wrapper: {width: '100%',},
     fakeButton: {

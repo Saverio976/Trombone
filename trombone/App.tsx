@@ -7,16 +7,14 @@
 
 import React from 'react';
 import 'react-native-gesture-handler';
-import type { PropsWithChildren } from 'react';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import LoginPage from './App/Login';
 import { store } from './App/Reducer';
-import Home2 from './App/Home/TrombiWrapper';
-import Home4 from './App/Home/WidgetWrapper';
 import { Header as NavHeader } from './Components/Header';
+import ChatHistory from './App/ChatHistory';
 import { MyTabBar as NavFooter } from './Components/Footer';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import UserInfoScreen from './App/UserPage';
@@ -28,6 +26,7 @@ import TrombiWrapper from './App/Home/TrombiWrapper';
 import WidgetWrapper from './App/Home/WidgetWrapper';
 
 export type ChatScreenParams = NativeStackScreenProps<RootStackParamList, "Chat">
+export type ChatHistoryParams = NativeStackScreenProps<RootStackParamList, "ChatHistory">
 
 function Home(): JSX.Element {
   const Tab = createMaterialTopTabNavigator();
@@ -63,6 +62,10 @@ type RootStackParamList = {
     employee: EmployeeFull,
     img: string,
   },
+  ChatHistory: {
+    data: { id: number, fullname: string }[]
+    me: EmployeeFull, image: string
+  }
 }
 
 export type UserInfoScreenParams = NativeStackScreenProps<RootStackParamList, 'UserInfo'>;
@@ -81,6 +84,7 @@ function App(): JSX.Element {
               <Stack.Screen name="Chat" component={Chat} options={{ headerShown: false }} />
               <Stack.Group screenOptions={{ presentation: "transparentModal" }} >
                 <Stack.Screen name="UserInfo" component={UserInfoScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="ChatHistory" component={ChatHistory} options={{ headerShown: false }} />
               </Stack.Group>
             </Stack.Navigator>
           </NavigationContainer>

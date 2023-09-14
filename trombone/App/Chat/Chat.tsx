@@ -56,9 +56,9 @@ const Chat = ({ navigation, route }: ChatScreenParams) => {
     }, [navigation]);
 
     const onSend = useCallback((messages: IMessage[] = []) => {
-        const { _id, createdAt, text, user } = messages[0]
+        var { _id, createdAt, text, user } = messages[0]
 
-        addDoc(collection(db, 'chats'), { _id, createdAt, text, user, partnerId: route.params.partner.id });
+        addDoc(collection(db, 'chats'), { _id, createdAt, text, user, partnerId: route.params.partner.id, partnerName: route.params.partner.fullname });
     }, []);
 
     function Header() {
@@ -86,13 +86,13 @@ const Chat = ({ navigation, route }: ChatScreenParams) => {
                 showAvatarForEveryMessage={true}
                 showUserAvatar={true}
                 placeholder='Entrez un message...'
-                minInputToolbarHeight={70}
                 onSend={messages => onSend(messages)}
                 user={{
                     _id: route.params.employee.id,
-                    name: route.params.employee.name,
+                    name: route.params.employee.name + " " + route.params.employee.surname,
                     avatar: route.params.img
                 }}
+                textInputProps={{color: "black", style: {fontFamily: "ArchivoNarrow-Bold", fontSize: 15, lineHeight: 15, flex: 1}}}
                 renderBubble={props => {
                     return (
                         <Bubble
