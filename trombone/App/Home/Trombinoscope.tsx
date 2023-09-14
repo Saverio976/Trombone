@@ -124,7 +124,6 @@ function Trombinoscope(): JSX.Element {
             return
         }
         v.forEach(async (i) => {
-            console.log(i)
             if (i >= employeesList.length) {
                 return;
             }
@@ -143,7 +142,6 @@ function Trombinoscope(): JSX.Element {
                     const fileReaderInstance = new FileReader();
                     fileReaderInstance.readAsDataURL(response.blob);
                     fileReaderInstance.onload = () => {
-                        console.log(":)")
                         var base64data = fileReaderInstance.result;
                         var img = "data:image/png;" + base64data
                         //@ts-ignore

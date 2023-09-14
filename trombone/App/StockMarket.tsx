@@ -94,7 +94,6 @@ function StockMarket(): JSX.Element {
         setLoading(true)
         Api.getSummary().then(summary => {
             setData(summary)
-            console.log(summary)
         }).catch(error => {
             console.error(error)
             Toast.show({
@@ -112,7 +111,6 @@ function StockMarket(): JSX.Element {
 
     return <View style={styles.container} onLayout={event => {
         var { x, y, width, height } = event.nativeEvent.layout
-        console.log(width)
         setViewWidth(width)
     }}>
         {
