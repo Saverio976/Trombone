@@ -8,7 +8,7 @@ export type Note = {
 
 const NOTE_KEY = 'note';
 
-export const newNote = async (note: string) => {
+export const newNote = async (note: string): Promise<Note | undefined> => {
     const nnote: Note = {
         note,
         date: new Date().toLocaleDateString(),
@@ -17,11 +17,12 @@ export const newNote = async (note: string) => {
     const old = await AsyncStorage.getItem(NOTE_KEY);
     if (old === null) {
         await AsyncStorage.setItem(NOTE_KEY, JSON.stringify([nnote]));
-        return
+        return nnote
     }
     const oldJson: Note[] = JSON.parse(old);
     oldJson.unshift(nnote);
     await AsyncStorage.setItem(NOTE_KEY, JSON.stringify(oldJson));
+    return nnote
 }
 
 export const getAllNotes = async (): Promise<Note[]> => {

@@ -106,6 +106,6 @@ const allWidgets: WidgetItem[] = [
     { size: "medium", elements: [<Tomate />] },
     { size: "small", elements: [<WeatherWidget />] },
     { size: "large", elements: [<Todos />] },
-    { size: "medium", elements: [<Notes />] },
+    { size: "large", elements: [<Notes />] },
 ]
 
