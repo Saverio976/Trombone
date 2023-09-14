@@ -38,7 +38,7 @@ export async function apiLogin(email: string, password: string): Promise<Request
             })
         })
         if (resp.status !== 200) {
-            return {code: 500, ok: false}
+            return {code: resp.status, ok: false, error: resp}
         }
         return {code: 200, ok: true, json: await resp.json()}
     } catch (error) {
