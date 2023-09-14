@@ -10,9 +10,18 @@ import { Image } from "react-native-elements"
 import Icons from "@app/Icons"
 import { useCallback, useEffect, useState } from "react"
 import { Modal } from "react-native"
-import { Button } from "react-native-paper"
 
 const asyncStorageKey = "WidgetConfig"
+
+function magic(str: WidgetSize) {
+    if (str === "large") {
+        return "Large"
+    } else if (str === "medium") {
+        return "Moyen"
+    } else {
+        return "Petit"
+    }
+}
 
 function Separator() {
     return <View style={{ height: margin }} />
@@ -219,7 +228,41 @@ export const Widgets = (): JSX.Element => {
                 <TouchableWithoutFeedback style={styles.absolute} onPress={() => setOptionsVisible(false)}><View style={styles.absolute} /></TouchableWithoutFeedback>
                 <View style={{ paddingBottom: 40, paddingTop: 20, position: "absolute", bottom: 0, left: 0, width: "100%", backgroundColor: "#00000055", flexDirection: "row", justifyContent: "space-around", alignSelf: "flex-end" }}>
                     <Image style={{ width: 50, height: 50 }} source={Icons.trashcan} onPress={() => Delete(id)} />
-                    <Image style={{ width: 50, height: 50 }} source={Icons.lock} />
+                    <Image style={{ width: 50, height: 50 }} source={Icons.lock} onPress={() => {
+                        if (widgets === undefined) {
+                            setOptionsVisible(false)
+                            return
+                        }
+
+                        var rowIndex = 0
+                        var columnIndex = 0
+                        var size = "not found"
+                        for (var i = 0; i < widgets.length; i++) {
+                            if (widgets[i].data[0]?.id === id) {
+                                rowIndex = i
+                                columnIndex = 0
+                                size = widgets[i].size
+                                break;
+                            }
+                            if (widgets[i].data[1]?.id === id) {
+                                rowIndex = i
+                                columnIndex = 1
+                                size = widgets[i].size
+                                break;
+
+                            }
+                            rowIndex += 1
+                        }
+                        if (size === "not found") {
+                            setOptionsVisible(false)
+                            return
+                        }
+                        setPos({ x: columnIndex, y: rowIndex })
+                        setOptionsVisible(false)
+                        setAddVisible(true)
+                        //@ts-ignore
+                        setAddType(size)
+                    }} />
                 </View>
             </Modal>
             <Modal visible={addVisible} onRequestClose={() => {
@@ -242,8 +285,8 @@ export const Widgets = (): JSX.Element => {
                             }
                         }
                         return <TouchableOpacity style={{ width: "100%", backgroundColor: "#000000CC", paddingHorizontal: 10, paddingVertical: 13 }} onPress={onPress}>
-                                {/* @ts-ignore */}
-                            <Text style={{ color: "white", "fontFamily": "ArchivoNarrow-Regular", fontSize: 16 }}>{data.item.name || data.item}</Text>
+                            {/* @ts-ignore */}
+                            <Text style={{ color: "white", "fontFamily": "ArchivoNarrow-Regular", fontSize: 16 }}>{data.item.displayName || magic(data.item)}</Text>
                         </TouchableOpacity>
                     }}
                     style={{ paddingBottom: 33, position: "absolute", bottom: 0, left: 0, width: "100%", backgroundColor: "#00000055", alignSelf: "flex-end" }}
@@ -307,12 +350,12 @@ const styles = StyleSheet.create({
 })
 
 const widgetTable = {
-    Weather: { name: "Weather", size: "small", element: <WeatherWidget /> },
-    WeatherMedium: { name: "WeatherMedium", size: "medium", element: <WeatherWidget /> },
-    Tomato: { name: "Tomato", size: "medium", element: <Tomate /> },
-    Todos: { name: "Todos", size: "large", element: <Todos /> },
-    Notes: { name: "Notes", size: "large", element: <Notes /> },
-    Market: { name: "Market", size: "medium", element: <StockMarket /> },
+    Weather: { displayName: "Météo", name: "Weather", size: "small", element: <WeatherWidget /> },
+    WeatherMedium: { displayName: "Météo", name: "WeatherMedium", size: "medium", element: <WeatherWidget /> },
+    Tomato: { displayName: "Pomodro", name: "Tomato", size: "medium", element: <Tomate /> },
+    Todos: { displayName: "Checklist", name: "Todos", size: "large", element: <Todos /> },
+    Notes: { displayName: "Notes", name: "Notes", size: "large", element: <Notes /> },
+    Market: { displayName: "Stock market", name: "Market", size: "medium", element: <StockMarket /> },
 }
 
 type WidgetSize = "small" | "medium" | "large"
