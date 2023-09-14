@@ -10,6 +10,7 @@ const Icons = {
     chat: require("./assets/icons/chat.png"),
     plus: require("./assets/icons/plus-note.png"),
     menu: require("./assets/icons/menu-note.png"),
+    trashcan: require("./assets/icons/trashcan.png"),
 }
 
 const c = "clear_sky"
