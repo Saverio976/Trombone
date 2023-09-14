@@ -14,9 +14,7 @@ import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navig
 
 import LoginPage from './App/Login';
 import { store } from './App/Reducer';
-import Home1 from './App/Home/Home1';
 import Home2 from './App/Home/TrombiWrapper';
-import Home3 from './App/Home/Home3';
 import Home4 from './App/Home/WidgetWrapper';
 import { Header as NavHeader } from './Components/Header';
 import { MyTabBar as NavFooter } from './Components/Footer';
