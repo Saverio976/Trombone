@@ -2,6 +2,7 @@ import WeatherWidget from "@app/App/Weather"
 import Colors from "@app/Colors"
 import { StyleSheet, View, Text, FlatList } from "react-native"
 import Tomate from "../Tomate"
+import Todos from "../Todo"
 import Notes from "../Note"
 import StockMarket from "@app/App/StockMarket"
 
@@ -86,7 +87,8 @@ const styles = StyleSheet.create({
 const widgetTable: { [name: string]: { size: WidgetSize, element: () => JSX.Element } } = {
     "Weather": { size: "small", element: WeatherWidget },
     "Tomato": { size: "medium", element: Tomate },
-    "Todos": { size: "large", element: Notes }
+    "Todos": { size: "large", element: Todos },
+    "Notes": { size: "medium", element: Notes },
 }
 
 // const widgetConfig =
@@ -103,6 +105,7 @@ const allWidgets: WidgetItem[] = [
     { size: "small", elements: [<Text>Second block</Text>, <WeatherWidget />] },
     { size: "medium", elements: [<Tomate />] },
     { size: "small", elements: [<WeatherWidget />] },
+    { size: "large", elements: [<Todos />] },
     { size: "large", elements: [<Notes />] },
 ]
 

@@ -5,12 +5,12 @@ import { ActivityIndicator, Image, ImageBackground, Keyboard, KeyboardAvoidingVi
 import Button from '@app/Components/Button';
 import { Images } from '@app/Icons';
 import { store } from './Reducer';
-import { apiLogin } from '@app/Api';
+import { apiLogin, apiMe } from '@app/Api';
 import Toast, { ErrorToast, SuccessToast } from 'react-native-toast-message';
 import { Modal, TextInput } from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { auth } from '@app/firebase';
 import { signInAnonymously } from 'firebase/auth';
+import { getLastToken, setLastToken } from '@app/PersistentLogin';
 
 
 interface inputBoxProps {
@@ -41,6 +41,32 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
     const [password, setPassword] = useState<string>("password");
     const [apiCall, setApiCall] = useState<boolean>(false);
     const user = store.getState();
+
+    const LoginWithToken = async (token: string) => {
+        store.dispatch({ type: 'login', token: token })
+        await setLastToken(token)
+        Toast.show({ text1: "Connexion réussie" })
+        signInAnonymously(auth)
+        await navigation.reset({ index: 0, routes: [{ name: "Home" }] });
+    }
+
+    useEffect(() => {
+        setApiCall(true)
+
+        getLastToken().then((token) => {
+            if (token === null) {
+                return
+            }
+            apiMe(token).then((res) => {
+                if (res.code !== 200) {
+                    return
+                }
+                LoginWithToken(token).then(() => { console.log("Logged in using last token") })
+            })
+        }).finally(() => {
+            setApiCall(false)
+        });
+    }, [])
 
 
     function QuickAdmin() {
@@ -75,10 +101,8 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
                 })
                 return
             }
-            store.dispatch({ type: 'login', token: response.json.access_token })
-            Toast.show({ text1: "Connexion réussie" })
-            signInAnonymously(auth)
-            await navigation.reset({ index: 0, routes: [{ name: "Home" }] });
+            await LoginWithToken(response.json.access_token)
+            console.log("Logged in using password")
         }).finally(() => { setApiCall(false) });
     }
 

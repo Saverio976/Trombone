@@ -8,6 +8,8 @@ const Icons = {
     tomato: require("./assets/icons/tomate21-2415639179.png"),
     chatArrow: require("./assets/icons/chat-arrow-left.png"),
     chat: require("./assets/icons/chat.png"),
+    plus: require("./assets/icons/plus-note.png"),
+    menu: require("./assets/icons/menu-note.png"),
 }
 
 const c = "clear_sky"

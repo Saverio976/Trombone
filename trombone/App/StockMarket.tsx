@@ -43,7 +43,6 @@ function transformMilliseconds(milis: number): string {
 }
 
 function renderItem({ item }: { item: Api.ItemSummary }) {
-    console.log(item)
     //@ts-expect-error
     const time = transformMilliseconds(item.lastDate - item.firstDate); const t2 = transformMilliseconds(new Date() - item.lastDate)
 
@@ -106,9 +105,9 @@ function StockMarket(): JSX.Element {
     }
 
     useEffect(() => {
-        fetchData()
-        const s = setInterval(() => fetchData(), 1000 * 60 * 5)
-        return () => clearInterval(s)
+        // fetchData()
+        // const s = setInterval(() => fetchData(), 1000 * 60 * 5)
+        // return () => clearInterval(s)
     }, [])
 
     return <View style={styles.container} onLayout={event => {
@@ -117,13 +116,13 @@ function StockMarket(): JSX.Element {
         setViewWidth(width)
     }}>
         {
-            data === undefined || loading ?
-                <ActivityIndicator size={50} style={{ flex: 1, alignSelf: "center" }} />
-                :
+            // data === undefined || loading ?
+                // <ActivityIndicator size={50} style={{ flex: 1, alignSelf: "center" }} />
+                // :
 
                 <Carousel
                     renderItem={renderItem}
-                    data={data}
+                    data={mockData}
                     sliderWidth={viewWidth}
                     itemWidth={viewWidth}
                     loop
