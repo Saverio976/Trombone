@@ -55,16 +55,16 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
 
         getLastToken().then((token) => {
             if (token === null) {
+                setApiCall(false)
                 return
             }
             apiMe(token).then((res) => {
                 if (res.code !== 200) {
+                    setApiCall(false)
                     return
                 }
-                LoginWithToken(token).then(() => { console.log("Logged in using last token") })
+                LoginWithToken(token).then(() => { console.log("Logged in using last token"); setApiCall(false) })
             })
-        }).finally(() => {
-            setApiCall(false)
         });
     }, [])
 
