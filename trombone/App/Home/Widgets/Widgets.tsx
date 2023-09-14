@@ -63,6 +63,7 @@ export const Widgets = (): JSX.Element => {
         return data === null ?
             <EmptySmallWidget x={x} y={y} />
             :
+            //@ts-ignore
             onLongPressWrapper(<View style={styles.litleBlock}>{widgetTable[data.name].element}</View>, data.id)
     }
 
@@ -70,6 +71,7 @@ export const Widgets = (): JSX.Element => {
         return data === null ?
             <EmptyMediumWidget />
             :
+            //@ts-ignore
             <View style={styles.litleBlock}>{widgetTable[data.name].element}</View>
     }
 
@@ -77,6 +79,7 @@ export const Widgets = (): JSX.Element => {
         return data === null ?
             <EmptyBigWidget />
             :
+            //@ts-ignore
             <View style={styles.oneBigBlock}>{widgetTable[data.name].element}</View>
     }
 
