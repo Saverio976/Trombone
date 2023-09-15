@@ -369,7 +369,7 @@ type WidgetItem = {
     data: [IdElement, IdElement] | [null, IdElement] | [IdElement, null] | [null, null] | [IdElement] | [null]
 }
 const allWidgets: WidgetItem[] = [
-    { size: "medium", data: [{ id: 0, name: "StockMarket" }] },
+    { size: "medium", data: [{ id: 0, name: "Market" }] },
     { size: "small", data: [{ id: 1, name: "Weather" }, { id: 2, name: "AnalogClock" }] },
     { size: "large", data: [{ id: 3, name: "Notes" }] },
 ]
