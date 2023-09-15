@@ -81,7 +81,7 @@ export const Widgets = (): JSX.Element => {
             <EmptyMediumWidget />
             :
             //@ts-ignore
-            <View style={styles.litleBlock}>{widgetTable[data.name].element}</View>
+            <View style={styles.oneBlock}>{widgetTable[data.name].element}</View>
     }
 
     function renderBig(data: IdElement | null) {
