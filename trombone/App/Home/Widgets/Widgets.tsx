@@ -76,11 +76,12 @@ export const Widgets = (): JSX.Element => {
     }
 
     function renderMedium(data: IdElement | null) {
-        return data === null ?
+        //@ts-ignore
+        return data === null || widgetTable[data.name] === undefined  ?
             <EmptyMediumWidget />
             :
             //@ts-ignore
-            <View style={styles.litleBlock}>{widgetTable[data.name].element}</View>
+            <View style={styles.oneBlock}>{widgetTable[data.name].element}</View>
     }
 
     function renderBig(data: IdElement | null) {

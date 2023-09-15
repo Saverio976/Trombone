@@ -11,6 +11,7 @@ import { Modal, TextInput } from 'react-native-paper';
 import { auth } from '@app/firebase';
 import { signInAnonymously } from 'firebase/auth';
 import { getLastToken, setLastToken } from '@app/PersistentLogin';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 interface inputBoxProps {
@@ -134,7 +135,7 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
                 </Button>
                 <Button style={styles.loginButton} onPress={QuickAdmin}>
                     <Text style={styles.loginButtonText}>
-                        Admin
+                        Demo
                     </Text>
                 </Button>
             </View>

@@ -14,6 +14,7 @@ const Icons = {
     swapWidget: require("./assets/icons/swap-widget.png"),
     trash: require("./assets/icons/trash.png"),
     me: require("./assets/icons/me.png"),
+    logout: require("./assets/icons/logout.png"),
 }
 
 const c = "clear_sky"
