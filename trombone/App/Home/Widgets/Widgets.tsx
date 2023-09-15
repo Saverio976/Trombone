@@ -10,6 +10,7 @@ import { Image } from "react-native-elements"
 import Icons from "@app/Icons"
 import { useCallback, useEffect, useState } from "react"
 import { Modal } from "react-native"
+import { Analog, Digital } from "./Clock"
 
 const asyncStorageKey = "WidgetConfig"
 
@@ -356,6 +357,8 @@ const widgetTable = {
     Todos: { displayName: "Checklist", name: "Todos", size: "large", element: <Todos /> },
     Notes: { displayName: "Notes", name: "Notes", size: "large", element: <Notes /> },
     Market: { displayName: "Stock market", name: "Market", size: "medium", element: <StockMarket /> },
+    AnalogClock: { displayName: "Horloge analogique", name: "AnalogClock", size: "small", element: <Analog /> },
+    DigitalClock: { displayName: "Horloge digitale", name: "DigitalClock", size: "small", element: <Digital /> },
 }
 
 type WidgetSize = "small" | "medium" | "large"
@@ -374,4 +377,3 @@ const allWidgets: WidgetItem[] = [
     { size: "large", data: [{ id: 4, name: "Todos" }] },
     { size: "large", data: [{ id: 5, name: "Notes" }] },
 ]
-

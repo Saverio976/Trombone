@@ -6741,6 +6741,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-clock-analog@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-clock-analog/-/react-native-clock-analog-0.0.3.tgz#0f7b6460bc151fcf6870c461bf85d53652d4cc1b"
+  integrity sha512-XVTiYLy1IGBwaNBXZZcgIbeRyoQ/RZiYNLM7oUi9kifmKyN7HtUmxga6+lOvTlfmYGqjqX7tkIylGa/9YaYCOQ==
+
 react-native-communications@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-native-communications/-/react-native-communications-2.2.1.tgz#7883b56b20a002eeb790c113f8616ea8692ca795"
