@@ -76,7 +76,8 @@ export const Widgets = (): JSX.Element => {
     }
 
     function renderMedium(data: IdElement | null) {
-        return data === null ?
+        //@ts-ignore
+        return data === null || widgetTable[data.name] === undefined  ?
             <EmptyMediumWidget />
             :
             //@ts-ignore
