@@ -13,6 +13,7 @@ const Icons = {
     trashcan: require("./assets/icons/trashcan.png"),
     swapWidget: require("./assets/icons/swap-widget.png"),
     trash: require("./assets/icons/trash.png"),
+    me: require("./assets/icons/me.png"),
 }
 
 const c = "clear_sky"

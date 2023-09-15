@@ -8,6 +8,7 @@ import { apiImage, apiMe, EmployeeFull } from '@app/Api';
 import Toast from "react-native-toast-message";
 import { collection, onSnapshot, or, orderBy, query, where } from 'firebase/firestore';
 import { db } from '@app/firebase';
+import Colors from '@app/Colors';
 
 type smallDbItem = { userId: number, partnerId: number, partnerName: string, userName: string }
 
@@ -143,7 +144,7 @@ export function Header() {
 
     function meImage() {
         return <TouchableOpacity onPress={onPressMyImage}>
-            <Image style={styles.image} source={{ uri: String(image) }} />
+            <Image style={styles.cogwheel} source={Icons.me} />
         </TouchableOpacity>
     }
 
@@ -155,19 +156,22 @@ export function Header() {
                 <Image style={styles.cogwheel} source={Icons.cogwheel} />
             </TouchableOpacity> */}
             <TouchableOpacity onPress={onOptions2} disabled={loading}>
-                <Image style={[styles.cogwheel, { tintColor: "black" }]} source={Icons.cogwheel} />
+                <Image style={[styles.cogwheel]} source={Icons.chat} />
             </TouchableOpacity>
         </View>
     );
 }
 const styles = StyleSheet.create({
     container: {
-        height: 70,
+        height: 50,
         paddingHorizontal: 15,
         paddingVertical: 10,
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: "space-between"
+        justifyContent: "space-evenly",
+        borderBottomLeftRadius: 25,
+        borderBottomRightRadius: 25,
+        backgroundColor: Colors.dark,
     },
     cogwheel: {
         width: 50,
