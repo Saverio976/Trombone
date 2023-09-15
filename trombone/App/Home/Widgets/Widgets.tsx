@@ -10,6 +10,7 @@ import { Image } from "react-native-elements"
 import Icons from "@app/Icons"
 import { useCallback, useEffect, useState } from "react"
 import { Modal } from "react-native"
+import { Analog, Digital } from "./Clock"
 
 const asyncStorageKey = "WidgetConfig"
 
@@ -354,6 +355,8 @@ const widgetTable = {
     Todos: { displayName: "Checklist", name: "Todos", size: "large", element: <Todos /> },
     Notes: { displayName: "Notes", name: "Notes", size: "large", element: <Notes /> },
     Market: { displayName: "Stock market", name: "Market", size: "medium", element: <StockMarket /> },
+    AnalogClock: { displayName: "Horloge analogique", name: "AnalogClock", size: "small", element: <Analog /> },
+    DigitalClock: { displayName: "Horloge digitale", name: "DigitalClock", size: "small", element: <Digital /> },
 }
 
 type WidgetSize = "small" | "medium" | "large"
@@ -365,11 +368,7 @@ type WidgetItem = {
     data: [IdElement, IdElement] | [null, IdElement] | [IdElement, null] | [null, null] | [IdElement] | [null]
 }
 const allWidgets: WidgetItem[] = [
-    { size: "medium", data: [{ id: 0, name: "Market" }] },
-    { size: "small", data: [{ id: 6, name: "Weather" }, { id: 1, name: "Weather" }] },
-    { size: "medium", data: [{ id: 2, name: "Tomato" }] },
-    { size: "small", data: [{ id: 3, name: "Weather" }, null] },
-    { size: "large", data: [{ id: 4, name: "Todos" }] },
-    { size: "large", data: [{ id: 5, name: "Notes" }] },
+    { size: "medium", data: [{ id: 0, name: "StockMarket" }] },
+    { size: "small", data: [{ id: 1, name: "Weather" }, { id: 2, name: "AnalogClock" }] },
+    { size: "large", data: [{ id: 3, name: "Notes" }] },
 ]
-
