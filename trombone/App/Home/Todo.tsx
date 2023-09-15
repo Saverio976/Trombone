@@ -101,10 +101,12 @@ export default function Todos() {
     }
 
     return (
-        <View style={{ ...styles.widget, paddingTop: 10, }}>
-            <Button onPress={() => a_deleteAllTodos()} style={{ ...styles.button, margin: 5, alignItems: 'center' }}>
-                <Text style={Fonts.text}>Supprimer toutes les todos</Text>
-            </Button>
+        <View style={{ ...styles.widget }}>
+            <View style={{paddingHorizontal: 35}}>
+                <Button onPress={() => a_deleteAllTodos()} style={{ ...styles.button, margin: 5, alignItems: 'center'}}>
+                    <Text style={Fonts.text}>Supprimer toutes les todos</Text>
+                </Button>
+            </View>
             <View>
                 <InputBox title="Nouvelle todo" placeholder="todo..." setFunc={setNewTodoString} str={newTodoString} />
                 <Button onPress={() => a_newTodo(newTodoString)} style={{ ...styles.button, margin: 5, alignItems: 'center' }}>

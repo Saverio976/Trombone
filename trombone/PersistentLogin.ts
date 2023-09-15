@@ -7,3 +7,7 @@ export async function getLastToken(): Promise<string | null> {
 export async function setLastToken(token: string) {
     return await AsyncStorage.setItem('access_token', token);
 }
+
+export async function clearToken() {
+    return await AsyncStorage.removeItem('access_token');
+}

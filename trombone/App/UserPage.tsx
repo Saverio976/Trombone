@@ -1,6 +1,7 @@
 import { UserInfoScreenParams } from "@app/App";
 import Fonts from "@app/Fonts";
 import Icons from "@app/Icons";
+import { clearToken } from "@app/PersistentLogin";
 import { BlurView } from "@react-native-community/blur";
 import React from "react";
 import { Button, Image, Text, View, Linking, TouchableOpacity, StyleSheet, Modal, Touchable, TouchableWithoutFeedback } from "react-native";
@@ -34,6 +35,13 @@ function UserInfoScreen({ navigation, route }: UserInfoScreenParams): JSX.Elemen
         return `${x.getDate()}/${x.getMonth()}/${x.getFullYear()}`
     }
 
+    async function Logout() {
+        console.log("Sex")
+        await clearToken();
+        navigation.reset({routes: [{"name": "Login"}], index: 0})
+    }
+
+    const isSelf = me.id == employee.id;
     return (
         <Modal visible={true} transparent={true} animationType="slide" onRequestClose={goBack} onDismiss={goBack} >
             <TouchableWithoutFeedback style={styles.absolute} onPress={goBack}><View style={styles.absolute}/></TouchableWithoutFeedback>
@@ -48,10 +56,9 @@ function UserInfoScreen({ navigation, route }: UserInfoScreenParams): JSX.Elemen
                     <Text style={styles.birthDate}>{formatDate()}</Text>
                     <Text onPress={OpenEmail} style={styles.emailText}>{employee.email}</Text>
                     <Text style={styles.job}>{employee.work}</Text>
-                    {me.id != employee.id ? <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={goToChat}>
-                        <Image source={Icons.chat} style={{ width: 32, height: 32, marginBottom: 16, marginTop: 20, }} />
+                    {<TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={isSelf ? Logout : goToChat}>
+                    <Image source={isSelf ?Icons.arrow : Icons.chat} style={{ width: 32, height: 32, marginBottom: 16, marginTop: 20, }} />
                     </TouchableOpacity>
-                        : null
                     }
                 </View>
             </View>

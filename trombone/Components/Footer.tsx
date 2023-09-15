@@ -57,16 +57,16 @@ export function MyTabBar({ state, descriptors, navigation, position }: any) {
 
     return (
         <View style={styles.container}>
-            <Button onPress={() => changeRoute()}>
-                <Animated.View
+            <Button onPress={() => changeRoute()} style={{backgroundColor: 'transparent'}}>
+                <Animated.Image
                     style={{
                         transform: [{
                             rotate: angleAnim.interpolate({ inputRange: [0, 180], outputRange: ['0deg', '180deg'] })
-                        }]
+                        }],
+                        ...styles.arrow
                     }}
-                >
-                    <Image source={Icons.arrow} style={ styles.arrow } />
-                </Animated.View>
+                    source={Icons.arrow}
+                />
             </Button>
         </View>
     )
@@ -75,7 +75,9 @@ export function MyTabBar({ state, descriptors, navigation, position }: any) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: Colors.secondary,
+        backgroundColor: Colors.dark,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
     },
     arrow: {
         marginLeft: 14,
@@ -84,5 +86,6 @@ const styles = StyleSheet.create({
         height: 33,
         alignSelf: "center",
         resizeMode: "contain",
+        tintColor: 'white',
     },
 })

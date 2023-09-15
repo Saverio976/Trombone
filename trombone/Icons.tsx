@@ -11,6 +11,9 @@ const Icons = {
     plus: require("./assets/icons/plus-note.png"),
     menu: require("./assets/icons/menu-note.png"),
     trashcan: require("./assets/icons/trashcan.png"),
+    swapWidget: require("./assets/icons/swap-widget.png"),
+    trash: require("./assets/icons/trash.png"),
+    me: require("./assets/icons/me.png"),
 }
 
 const c = "clear_sky"

@@ -37,8 +37,8 @@ function InputBox({ hidden = false, setFunc, str, placeholder }: inputBoxProps):
 
 
 function LoginPage({ navigation }: { navigation: any }): JSX.Element {
-    const [email, setEmail] = useState<string>("oliver.lewis@masurao.jp");
-    const [password, setPassword] = useState<string>("password");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const [apiCall, setApiCall] = useState<boolean>(false);
     const user = store.getState();
 
@@ -55,16 +55,16 @@ function LoginPage({ navigation }: { navigation: any }): JSX.Element {
 
         getLastToken().then((token) => {
             if (token === null) {
+                setApiCall(false)
                 return
             }
             apiMe(token).then((res) => {
                 if (res.code !== 200) {
+                    setApiCall(false)
                     return
                 }
-                LoginWithToken(token).then(() => { console.log("Logged in using last token") })
+                LoginWithToken(token).then(() => { console.log("Logged in using last token"); setApiCall(false) })
             })
-        }).finally(() => {
-            setApiCall(false)
         });
     }, [])
 

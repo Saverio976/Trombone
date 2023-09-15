@@ -1,5 +1,5 @@
 import WeatherWidget from "@app/App/Weather"
-import { StyleSheet, View, Text, FlatList, Touchable, TouchableWithoutFeedback, Alert, TouchableHighlight, TouchableOpacity } from "react-native"
+import { StyleSheet, View, Text, FlatList, TouchableWithoutFeedback, Alert, TouchableHighlight, TouchableOpacity } from "react-native"
 import Tomate from "../Tomate"
 import Todos from "../Todo"
 import Notes from "../Note"
@@ -32,10 +32,8 @@ export const Widgets = (): JSX.Element => {
     const [addVisible, setAddVisible] = useState<boolean>(false)
     const [addType, setAddType] = useState<undefined | WidgetSize>(undefined)
     const [pos, setPos] = useState<{ x: number, y: number }>({ x: 0, y: 0 })
-
-
     const [id, setId] = useState<number>(0)
-    const [widgets, setWidgets] = useState<WidgetItem[] | undefined>(undefined)
+    const [widgets, setWidgets] = useState<WidgetItem[] | undefined>(allWidgets)
 
     async function fetchData() {
         try {
@@ -72,7 +70,7 @@ export const Widgets = (): JSX.Element => {
         return data === null ?
             <EmptySmallWidget x={x} y={y} />
             :
-            //@ts-ignore
+            //@ts-expect-error
             onLongPressWrapper(<View style={styles.litleBlock}>{widgetTable[data.name].element}</View>, data.id)
     }
 
@@ -226,9 +224,9 @@ export const Widgets = (): JSX.Element => {
         <>
             <Modal visible={optionsVisible} onRequestClose={() => setOptionsVisible(false)} style={{ flex: 1 }} transparent animationType="slide">
                 <TouchableWithoutFeedback style={styles.absolute} onPress={() => setOptionsVisible(false)}><View style={styles.absolute} /></TouchableWithoutFeedback>
-                <View style={{ paddingBottom: 40, paddingTop: 20, position: "absolute", bottom: 0, left: 0, width: "100%", backgroundColor: "#00000055", flexDirection: "row", justifyContent: "space-around", alignSelf: "flex-end" }}>
-                    <Image style={{ width: 50, height: 50 }} source={Icons.trashcan} onPress={() => Delete(id)} />
-                    <Image style={{ width: 50, height: 50 }} source={Icons.lock} onPress={() => {
+                <View style={{ paddingBottom: 40, paddingTop: 20, position: "absolute", bottom: 0, left: 0, width: "100%", backgroundColor: "#000000CC", flexDirection: "row", justifyContent: "space-around", alignSelf: "flex-end" }}>
+                    <Image style={{ width: 50, height: 50 }} source={Icons.trash} onPress={() => Delete(id)} />
+                    <Image style={{ width: 50, height: 50 }} source={Icons.swapWidget} onPress={() => {
                         if (widgets === undefined) {
                             setOptionsVisible(false)
                             return
@@ -289,7 +287,7 @@ export const Widgets = (): JSX.Element => {
                             <Text style={{ color: "white", "fontFamily": "ArchivoNarrow-Regular", fontSize: 16 }}>{data.item.displayName || magic(data.item)}</Text>
                         </TouchableOpacity>
                     }}
-                    style={{ paddingBottom: 33, position: "absolute", bottom: 0, left: 0, width: "100%", backgroundColor: "#00000055", alignSelf: "flex-end" }}
+                    style={{ paddingBottom: 0, position: "absolute", bottom: 0, left: 0, width: "100%", backgroundColor: "#00000055", alignSelf: "flex-end" }}
 
                 />
             </Modal>

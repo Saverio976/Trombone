@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        paddingHorizontal: 35,
     },
     middle: {
         alignItems: 'center',
