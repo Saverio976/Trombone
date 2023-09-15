@@ -1,5 +1,5 @@
 import WeatherWidget from "@app/App/Weather"
-import { StyleSheet, View, Text, FlatList, Touchable, TouchableWithoutFeedback, Alert, TouchableHighlight, TouchableOpacity } from "react-native"
+import { StyleSheet, View, Text, FlatList, TouchableWithoutFeedback, Alert, TouchableHighlight, TouchableOpacity } from "react-native"
 import Tomate from "../Tomate"
 import Todos from "../Todo"
 import Notes from "../Note"
@@ -32,10 +32,8 @@ export const Widgets = (): JSX.Element => {
     const [addVisible, setAddVisible] = useState<boolean>(false)
     const [addType, setAddType] = useState<undefined | WidgetSize>(undefined)
     const [pos, setPos] = useState<{ x: number, y: number }>({ x: 0, y: 0 })
-
-
     const [id, setId] = useState<number>(0)
-    const [widgets, setWidgets] = useState<WidgetItem[] | undefined>(undefined)
+    const [widgets, setWidgets] = useState<WidgetItem[] | undefined>(allWidgets)
 
     async function fetchData() {
         try {
@@ -72,7 +70,7 @@ export const Widgets = (): JSX.Element => {
         return data === null ?
             <EmptySmallWidget x={x} y={y} />
             :
-            //@ts-ignore
+            //@ts-expect-error
             onLongPressWrapper(<View style={styles.litleBlock}>{widgetTable[data.name].element}</View>, data.id)
     }
 

@@ -37,8 +37,8 @@ function InputBox({ hidden = false, setFunc, str, placeholder }: inputBoxProps):
 
 
 function LoginPage({ navigation }: { navigation: any }): JSX.Element {
-    const [email, setEmail] = useState<string>("oliver.lewis@masurao.jp");
-    const [password, setPassword] = useState<string>("password");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
     const [apiCall, setApiCall] = useState<boolean>(false);
     const user = store.getState();
 
