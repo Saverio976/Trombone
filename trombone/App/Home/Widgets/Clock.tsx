@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
+//@ts-expect-error
 import AnalogClock from 'react-native-clock-analog';
 
 const nowDate = () => {
@@ -35,7 +36,7 @@ export function Analog(): JSX.Element {
         const int = setInterval(() => {
             const { second, minute, hour } = nowDate();
             setState({ second, minute, hour });
-        }, 333);
+        }, 100);
         return () => { clearInterval(int) }
     }, [useState]);
 
