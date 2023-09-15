@@ -36,7 +36,6 @@ function UserInfoScreen({ navigation, route }: UserInfoScreenParams): JSX.Elemen
     }
 
     async function Logout() {
-        console.log("Sex")
         await clearToken();
         navigation.reset({routes: [{"name": "Login"}], index: 0})
     }
@@ -57,7 +56,7 @@ function UserInfoScreen({ navigation, route }: UserInfoScreenParams): JSX.Elemen
                     <Text onPress={OpenEmail} style={styles.emailText}>{employee.email}</Text>
                     <Text style={styles.job}>{employee.work}</Text>
                     {<TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={isSelf ? Logout : goToChat}>
-                    <Image source={isSelf ?Icons.arrow : Icons.chat} style={{ width: 32, height: 32, marginBottom: 16, marginTop: 20, }} />
+                    <Image source={isSelf ? Icons.logout : Icons.chat} style={{ width: 32, height: isSelf ? 40 : 32, marginBottom: 16, marginTop: 20, tintColor: "white" }} />
                     </TouchableOpacity>
                     }
                 </View>
