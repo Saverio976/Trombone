@@ -68,7 +68,7 @@ function renderItem({ item }: { item: Api.ItemSummary }) {
                 </View>
             </View>
             <View style={{ flex: 30, width: "100%", aspectRatio: 1 }}>
-                <Image style={{ width: "100%", height: "100%" }} tintColor={color} source={Icons.search} />
+                <Image style={{ width: "100%", height: "100%" }} source={diff >= 0 ? Icons.upStock : Icons.downStock} />
             </View>
         </View>
     </View>

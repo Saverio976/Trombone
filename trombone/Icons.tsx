@@ -15,6 +15,8 @@ const Icons = {
     trash: require("./assets/icons/trash.png"),
     me: require("./assets/icons/me.png"),
     logout: require("./assets/icons/logout.png"),
+    upStock: require("./assets/icons/up-stock.png"),
+    downStock: require("./assets/icons/down-stock.png"),
 }
 
 const c = "clear_sky"
